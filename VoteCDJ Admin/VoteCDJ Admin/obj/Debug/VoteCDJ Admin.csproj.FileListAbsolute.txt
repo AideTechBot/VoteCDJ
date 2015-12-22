@@ -10,3 +10,15 @@ D:\Manuel\C# Projects\VoteCDJ Admin\VoteCDJ Admin\bin\Debug\MySql.Data.dll
 D:\Manuel\C# Projects\VoteCDJ Admin\VoteCDJ Admin\obj\Debug\VoteCDJ_Admin.MainWindow.resources
 D:\Manuel\C# Projects\VoteCDJ Admin\VoteCDJ Admin\obj\Debug\VoteCDJ_Admin.ConnectionWindow.resources
 D:\Manuel\C# Projects\VoteCDJ Admin\VoteCDJ Admin\obj\Debug\VoteCDJ_Admin.popOutWindow.resources
+D:\Manuel\Github\VoteCDJ\VoteCDJ Admin\VoteCDJ Admin\bin\Debug\VoteCDJ Admin.exe.config
+D:\Manuel\Github\VoteCDJ\VoteCDJ Admin\VoteCDJ Admin\obj\Debug\VoteCDJ Admin.exe
+D:\Manuel\Github\VoteCDJ\VoteCDJ Admin\VoteCDJ Admin\obj\Debug\VoteCDJ Admin.pdb
+D:\Manuel\Github\VoteCDJ\VoteCDJ Admin\VoteCDJ Admin\bin\Debug\VoteCDJ Admin.exe
+D:\Manuel\Github\VoteCDJ\VoteCDJ Admin\VoteCDJ Admin\bin\Debug\VoteCDJ Admin.pdb
+D:\Manuel\Github\VoteCDJ\VoteCDJ Admin\VoteCDJ Admin\bin\Debug\MySql.Data.dll
+D:\Manuel\Github\VoteCDJ\VoteCDJ Admin\VoteCDJ Admin\obj\Debug\VoteCDJ Admin.csprojResolveAssemblyReference.cache
+D:\Manuel\Github\VoteCDJ\VoteCDJ Admin\VoteCDJ Admin\obj\Debug\VoteCDJ_Admin.ConnectionWindow.resources
+D:\Manuel\Github\VoteCDJ\VoteCDJ Admin\VoteCDJ Admin\obj\Debug\VoteCDJ_Admin.MainWindow.resources
+D:\Manuel\Github\VoteCDJ\VoteCDJ Admin\VoteCDJ Admin\obj\Debug\VoteCDJ_Admin.popOutWindow.resources
+D:\Manuel\Github\VoteCDJ\VoteCDJ Admin\VoteCDJ Admin\obj\Debug\VoteCDJ_Admin.Properties.Resources.resources
+D:\Manuel\Github\VoteCDJ\VoteCDJ Admin\VoteCDJ Admin\obj\Debug\VoteCDJ Admin.csproj.GenerateResource.Cache
