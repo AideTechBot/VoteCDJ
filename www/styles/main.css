@@ -1,0 +1,111 @@
+/* VOTECDJ MANUEL DIONNE*/
+
+/*classes*/
+
+.error {
+	background-color:#FF0000;
+	color: #FFFFFF;
+	font-family:"Arial";
+	padding:10px 10px 10px 10px;
+	text-align:center;
+}
+
+.titleVOTE {
+	font-family:"Arial";
+	/*padding:10px 10px 10px 10px;*/
+	font-size: 125%;
+	text-align:center;
+}
+
+.errorlink a:link {
+	color: #FFFFFF;
+}
+
+.error a:visited {
+	color: #FFFFFF;
+}
+
+.error a:hover {
+	color: #0000FF;
+}
+
+.error a:active {
+	color: #FFFFFF;
+}
+
+.windowbody {
+	position:absolute;
+    left:0; right:0;
+    top:0; bottom:0;
+    margin:auto;
+    width:400px;
+    height:400px;
+    border:20px solid rgba(0, 0, 0, 0.1);
+    background-color: rgba(162, 140, 128, 0.9);
+    padding: 10px 10px 10px 10px;
+
+    font-family: "Arial";
+}
+
+.windowheader {
+	text-align: left;
+	height:30px;
+	width:100%;
+}
+
+.windowcontent {
+	text-align: left;
+	padding-left: 10px; padding-right: 10px;
+	word-wrap: break-word;
+	height:340px;
+	overflow-x: hidden;
+    overflow-y: scroll;
+}
+
+.windowfooter {
+	text-align: right;
+	height: 30px;
+	width:400px;
+	position:absolute; bottom:0;
+}
+
+.votecell {
+	padding: 5px 5px 5px 5px;
+	background-color: rgba(0, 0, 0, 0.1);
+	margin-bottom: 5px;
+}
+
+/*id tags*/
+
+#loginbody {
+	position:absolute;
+    left:0; right:0;
+    top:40%; bottom:50%;
+    margin:auto;
+    width: 225px;
+    height: 150px;
+    text-align: center;
+    border:20px solid rgba(0, 0, 0, 0.1);
+    background-color: rgba(162, 140, 128, 0.9);
+    padding-top: 85px;
+    padding-bottom: 10px;
+
+}
+
+#logosection {
+	position: absolute;
+	top: -100px;
+	left:25px;
+}
+
+/*normal tags*/
+
+html {
+    background-color: #7a5b49;
+    min-height: 100%;
+    background-image: url(../images/radial_gradient.svg), url(../images/bg_logo.jpg), url(../images/bg_noise_html.jpg);
+    background-position: 50% 0, 100% 0, 0 0;
+    background-repeat: no-repeat, no-repeat, repeat;
+    background-size: 100% 100%, 1000px 837px, 143px 143px;
+    background-attachment: fixed, fixed, inherit;
+}
