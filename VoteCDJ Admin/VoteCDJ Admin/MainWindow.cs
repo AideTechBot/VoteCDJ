@@ -175,6 +175,13 @@ namespace VoteCDJ_Admin
                         cmd = new MySqlCommand(query, this.SQLConn);
                         cmd.ExecuteNonQuery();
 
+                        //give the people their right to vote
+                        //by the people, for the people
+                        //equality and justice for all
+                        query = "UPDATE members SET hasvoted = 0";
+                        cmd = new MySqlCommand(query, this.SQLConn);
+                        cmd.ExecuteNonQuery();
+
                         voteCount = 0;
                         voteTimer.Start();
                         voteStarted = true;
