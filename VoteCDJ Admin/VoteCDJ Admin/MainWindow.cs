@@ -10,6 +10,7 @@ using System.Windows.Forms;
 using MySql.Data;
 using MySql.Data.MySqlClient;
 using System.IO;
+using Excel = Microsoft.Office.Interop.Excel;
 
 namespace VoteCDJ_Admin
 {
@@ -49,7 +50,15 @@ namespace VoteCDJ_Admin
         //COUNT ALL THE VOTES
         private int getTotalVotes(int postID)
         {
-            string query = "SELECT * FROM voteHistory WHERE  postID = " + postID.ToString();
+            string query;
+            if (postID != -1)
+            {
+                query = "SELECT * FROM voteHistory WHERE  postID = " + postID.ToString();
+            }
+            else
+            {
+                query = "SELECT * FROM voteHistory";
+            }
 
             MySqlCommand cmd = new MySqlCommand(query, this.SQLConn);
             MySqlDataReader reader = cmd.ExecuteReader();
@@ -95,6 +104,10 @@ namespace VoteCDJ_Admin
             connectionOptions.Visible = true;
 
             nouvelleConnexionToolStripMenuItem.Enabled = false;
+            importPassToolStripMenuItem.Enabled = true;
+            clearPassToolStripMenuItem.Enabled = true;
+            resetVoteToolStripMenuItem.Enabled = true; 
+
 
             if (SQLConn.State == ConnectionState.Open)
             {
@@ -134,7 +147,7 @@ namespace VoteCDJ_Admin
 
             }
         }
-
+        
         private void startVoteButton_Click(object sender, EventArgs e)
         {
             if (!voteStarted && voteTimeButton.Value != 0)
@@ -146,14 +159,20 @@ namespace VoteCDJ_Admin
                         //disable stuff
                         voteTimeButton.Enabled = false;
                         startVoteButton.Enabled = false;
-                        nouvelleConnexionToolStripMenuItem.Enabled = false;
                         déconnexionToolStripMenuItem.Enabled = false;
                         endVoteButton.Enabled = true;
 
+
                         voteTimeLeftLabel.Text = Math.Floor(voteTimeButton.Value).ToString() + ":" + Math.Round((voteTimeButton.Value - Math.Floor(voteTimeButton.Value)) * 60).ToString().PadLeft(2, '0');
 
+                        //clear the has voted
                         string query = "UPDATE vars SET voteStarted = 1";
                         MySqlCommand cmd = new MySqlCommand(query, this.SQLConn);
+                        cmd.ExecuteNonQuery();
+
+                        //delete the votes
+                        query = "DELETE FROM voteHistory";
+                        cmd = new MySqlCommand(query, this.SQLConn);
                         cmd.ExecuteNonQuery();
 
                         voteCount = 0;
@@ -177,9 +196,9 @@ namespace VoteCDJ_Admin
         {
             if (voteStarted)
             {
+                //disable stuff
                 voteTimeButton.Enabled = true;
                 startVoteButton.Enabled = true;
-                nouvelleConnexionToolStripMenuItem.Enabled = true;
                 déconnexionToolStripMenuItem.Enabled = true;
                 endVoteButton.Enabled = false;
 
@@ -216,6 +235,10 @@ namespace VoteCDJ_Admin
                 totalVotesLabel.Text = "- votes";
 
                 nouvelleConnexionToolStripMenuItem.Enabled = true;
+                importPassToolStripMenuItem.Enabled = false;
+                clearPassToolStripMenuItem.Enabled = false;
+                resetVoteToolStripMenuItem.Enabled = false; 
+
                 histoChart.Series[0].Points.Clear();
                 comboBoxPost.Items.Clear();
                 comboBoxPost.ResetText();
@@ -299,6 +322,51 @@ namespace VoteCDJ_Admin
             }
         }
 
+        public void updateTree()
+        {
+            if (SQLConn.State == ConnectionState.Open)
+            {
+                treeView.Nodes.Clear();
+                tupleList.Clear();
+                comboBoxPost.Items.Clear();
+
+                string query = "SELECT * FROM post";
+
+                MySqlCommand cmd = new MySqlCommand(query, this.SQLConn);
+                MySqlDataReader reader = cmd.ExecuteReader();
+
+                while (reader.Read())
+                {
+                    string post = reader.GetString(1);
+                    int id = reader.GetInt32(0);
+                    tupleList.Add(Tuple.Create(post, id));
+                    treeView.Nodes.Add(post);
+                    comboBoxPost.Items.Add(post);
+                }
+
+                reader.Close();
+
+                //QUERY NO 2 HERE WE GO
+                foreach (Tuple<string, int> tuple in tupleList)
+                {
+                    query = "SELECT name FROM candidates WHERE postID =" + tuple.Item2;
+
+                    cmd = new MySqlCommand(query, this.SQLConn);
+                    reader = cmd.ExecuteReader();
+
+                    while (reader.Read())
+                    {
+                        string name = reader.GetString(0);
+                        treeView.Nodes[tuple.Item2 - 1].Nodes.Add(name);
+
+                    }
+
+                    reader.Close();
+                }
+
+            }
+        }
+
         private void UIUpdater_Tick(object sender, EventArgs e)
         {
             try
@@ -306,7 +374,7 @@ namespace VoteCDJ_Admin
                 if (SQLConn.State == ConnectionState.Open)
                 {
                     //GREEN TEXT UPDATER
-                    int totalVotes = getTotalVotes(1);
+                    int totalVotes = getTotalVotes(-1);
                     totalVotesLabel.Text = totalVotes.ToString() + " votes au total";
 
                     string query = "SELECT * FROM voteHistory WHERE voteTime >= DATE_SUB(NOW(),INTERVAL 1 HOUR) AND postID = 1";
@@ -471,6 +539,30 @@ namespace VoteCDJ_Admin
         private void tabControl1_Selected(object sender, TabControlEventArgs e)
         {
             UIUpdater_Tick(sender,e);
+        }
+
+        private void exportResultsToolStripMenuItem_Click_1(object sender, EventArgs e)
+        {
+        }
+
+        private void addCandidatesButton_Click(object sender, EventArgs e)
+        {
+            if (SQLConn.State == ConnectionState.Open)
+            {
+                if (getTotalVotes(-1) == 0 && !voteStarted)
+                {
+                    addCandidatesWindow addCandidatesWindow = new addCandidatesWindow();
+                    addCandidatesWindow.ShowDialog();
+                }
+                else
+                {
+                    MessageBox.Show("Vote en cours.");
+                }
+            }
+            else
+            {
+                MessageBox.Show("Auncune connexion de base de données.");
+            }
         }
 
     }

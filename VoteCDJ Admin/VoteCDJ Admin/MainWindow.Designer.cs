@@ -50,8 +50,7 @@
             this.treeView = new System.Windows.Forms.TreeView();
             this.tableLayoutPanel2 = new System.Windows.Forms.TableLayoutPanel();
             this.flowLayoutPanel1 = new System.Windows.Forms.FlowLayoutPanel();
-            this.button1 = new System.Windows.Forms.Button();
-            this.button2 = new System.Windows.Forms.Button();
+            this.addCandidatesButton = new System.Windows.Forms.Button();
             this.tableLayoutPanel3 = new System.Windows.Forms.TableLayoutPanel();
             this.voteTimeLeftLabel = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
@@ -72,8 +71,12 @@
             this.piChart = new System.Windows.Forms.DataVisualization.Charting.Chart();
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.fileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.exportResultsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.connexionsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.nouvelleConnexionToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.importPassToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.clearPassToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.resetVoteToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.helpToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.voteTimer = new System.Windows.Forms.Timer(this.components);
             this.UIUpdater = new System.Windows.Forms.Timer(this.components);
@@ -195,7 +198,6 @@
             this.statusStrip1.Name = "statusStrip1";
             this.statusStrip1.Size = new System.Drawing.Size(492, 22);
             this.statusStrip1.TabIndex = 0;
-            this.statusStrip1.Text = "statusStrip1";
             // 
             // statusText
             // 
@@ -248,8 +250,7 @@
             // 
             // flowLayoutPanel1
             // 
-            this.flowLayoutPanel1.Controls.Add(this.button1);
-            this.flowLayoutPanel1.Controls.Add(this.button2);
+            this.flowLayoutPanel1.Controls.Add(this.addCandidatesButton);
             this.flowLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.flowLayoutPanel1.Location = new System.Drawing.Point(0, 0);
             this.flowLayoutPanel1.Margin = new System.Windows.Forms.Padding(0);
@@ -257,23 +258,15 @@
             this.flowLayoutPanel1.Size = new System.Drawing.Size(89, 262);
             this.flowLayoutPanel1.TabIndex = 0;
             // 
-            // button1
+            // addCandidatesButton
             // 
-            this.button1.Location = new System.Drawing.Point(3, 3);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(75, 23);
-            this.button1.TabIndex = 0;
-            this.button1.Text = "Add";
-            this.button1.UseVisualStyleBackColor = true;
-            // 
-            // button2
-            // 
-            this.button2.Location = new System.Drawing.Point(3, 32);
-            this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(75, 23);
-            this.button2.TabIndex = 1;
-            this.button2.Text = "Remove";
-            this.button2.UseVisualStyleBackColor = true;
+            this.addCandidatesButton.Location = new System.Drawing.Point(3, 3);
+            this.addCandidatesButton.Name = "addCandidatesButton";
+            this.addCandidatesButton.Size = new System.Drawing.Size(83, 23);
+            this.addCandidatesButton.TabIndex = 0;
+            this.addCandidatesButton.Text = "Modifier";
+            this.addCandidatesButton.UseVisualStyleBackColor = true;
+            this.addCandidatesButton.Click += new System.EventHandler(this.addCandidatesButton_Click);
             // 
             // tableLayoutPanel3
             // 
@@ -533,14 +526,27 @@
             // 
             // fileToolStripMenuItem
             // 
+            this.fileToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.exportResultsToolStripMenuItem});
             this.fileToolStripMenuItem.Name = "fileToolStripMenuItem";
             this.fileToolStripMenuItem.Size = new System.Drawing.Size(54, 20);
             this.fileToolStripMenuItem.Text = "Fichier";
             // 
+            // exportResultsToolStripMenuItem
+            // 
+            this.exportResultsToolStripMenuItem.Enabled = false;
+            this.exportResultsToolStripMenuItem.Name = "exportResultsToolStripMenuItem";
+            this.exportResultsToolStripMenuItem.Size = new System.Drawing.Size(181, 22);
+            this.exportResultsToolStripMenuItem.Text = "Exporter les resultats";
+            this.exportResultsToolStripMenuItem.Click += new System.EventHandler(this.exportResultsToolStripMenuItem_Click_1);
+            // 
             // connexionsToolStripMenuItem
             // 
             this.connexionsToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.nouvelleConnexionToolStripMenuItem});
+            this.nouvelleConnexionToolStripMenuItem,
+            this.importPassToolStripMenuItem,
+            this.clearPassToolStripMenuItem,
+            this.resetVoteToolStripMenuItem});
             this.connexionsToolStripMenuItem.Name = "connexionsToolStripMenuItem";
             this.connexionsToolStripMenuItem.Size = new System.Drawing.Size(107, 20);
             this.connexionsToolStripMenuItem.Text = "Base de données";
@@ -548,9 +554,30 @@
             // nouvelleConnexionToolStripMenuItem
             // 
             this.nouvelleConnexionToolStripMenuItem.Name = "nouvelleConnexionToolStripMenuItem";
-            this.nouvelleConnexionToolStripMenuItem.Size = new System.Drawing.Size(181, 22);
+            this.nouvelleConnexionToolStripMenuItem.Size = new System.Drawing.Size(231, 22);
             this.nouvelleConnexionToolStripMenuItem.Text = "Nouvelle Connexion";
             this.nouvelleConnexionToolStripMenuItem.Click += new System.EventHandler(this.nouvelleConnexionToolStripMenuItem_Click);
+            // 
+            // importPassToolStripMenuItem
+            // 
+            this.importPassToolStripMenuItem.Enabled = false;
+            this.importPassToolStripMenuItem.Name = "importPassToolStripMenuItem";
+            this.importPassToolStripMenuItem.Size = new System.Drawing.Size(231, 22);
+            this.importPassToolStripMenuItem.Text = "Importer les mots de passe";
+            // 
+            // clearPassToolStripMenuItem
+            // 
+            this.clearPassToolStripMenuItem.Enabled = false;
+            this.clearPassToolStripMenuItem.Name = "clearPassToolStripMenuItem";
+            this.clearPassToolStripMenuItem.Size = new System.Drawing.Size(231, 22);
+            this.clearPassToolStripMenuItem.Text = "Effacer tous les mots de passe";
+            // 
+            // resetVoteToolStripMenuItem
+            // 
+            this.resetVoteToolStripMenuItem.Enabled = false;
+            this.resetVoteToolStripMenuItem.Name = "resetVoteToolStripMenuItem";
+            this.resetVoteToolStripMenuItem.Size = new System.Drawing.Size(231, 22);
+            this.resetVoteToolStripMenuItem.Text = "Réinitialiser le vote";
             // 
             // helpToolStripMenuItem
             // 
@@ -620,8 +647,6 @@
         private System.Windows.Forms.Label voteTimeLeftLabel;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel2;
         private System.Windows.Forms.FlowLayoutPanel flowLayoutPanel1;
-        private System.Windows.Forms.Button button1;
-        private System.Windows.Forms.Button button2;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel3;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.FlowLayoutPanel flowLayoutPanel2;
@@ -651,6 +676,11 @@
         private System.Windows.Forms.FlowLayoutPanel flowLayoutPanel3;
         private System.Windows.Forms.Label voteHourLabel;
         private System.Windows.Forms.Label totalVotesLabel;
+        private System.Windows.Forms.ToolStripMenuItem importPassToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem clearPassToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem exportResultsToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem resetVoteToolStripMenuItem;
+        private System.Windows.Forms.Button addCandidatesButton;
 
     }
 }

@@ -26,7 +26,7 @@ namespace VoteCDJ_Admin
             IPAddress address;
             if (IPAddress.TryParse(ipBox.Text, out address))
             {
-                string connetionString = "SERVER = " + ipBox.Text + "; PORT = " + portBox.Value.ToString() + "; DATABASE = Vote; User ID = sec_user; PASSWORD = AiwnMpowmKE";
+                string connetionString = "SERVER = " + ipBox.Text + "; PORT = " + portBox.Value.ToString() + "; DATABASE = Vote; User ID = sec_remote; PASSWORD = 6EUO1BE6ZRb";
 
                 var mainWindow = Application.OpenForms.OfType<MainWindow>().Single();
                 mainWindow.SQLConn = new MySqlConnection(connetionString);
