@@ -80,6 +80,7 @@
             this.helpToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.voteTimer = new System.Windows.Forms.Timer(this.components);
             this.UIUpdater = new System.Windows.Forms.Timer(this.components);
+            this.saveFileDialog = new System.Windows.Forms.SaveFileDialog();
             this.tableLayoutPanel1.SuspendLayout();
             this.panel2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.candidateChart)).BeginInit();
@@ -534,7 +535,6 @@
             // 
             // exportResultsToolStripMenuItem
             // 
-            this.exportResultsToolStripMenuItem.Enabled = false;
             this.exportResultsToolStripMenuItem.Name = "exportResultsToolStripMenuItem";
             this.exportResultsToolStripMenuItem.Size = new System.Drawing.Size(181, 22);
             this.exportResultsToolStripMenuItem.Text = "Exporter les resultats";
@@ -594,6 +594,9 @@
             // 
             this.UIUpdater.Interval = 1000;
             this.UIUpdater.Tick += new System.EventHandler(this.UIUpdater_Tick);
+            // 
+            // saveFileDialog
+            // 
             // 
             // MainWindow
             // 
@@ -681,6 +684,7 @@
         private System.Windows.Forms.ToolStripMenuItem exportResultsToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem resetVoteToolStripMenuItem;
         private System.Windows.Forms.Button addCandidatesButton;
+        private System.Windows.Forms.SaveFileDialog saveFileDialog;
 
     }
 }

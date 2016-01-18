@@ -150,74 +150,82 @@ namespace VoteCDJ_Admin
         
         private void startVoteButton_Click(object sender, EventArgs e)
         {
-            if (!voteStarted && voteTimeButton.Value != 0)
+            DialogResult dialogResult = MessageBox.Show("Êtes-vous sûr que vous voulez effacer tous les résultats du vote et commencer un nouveau vote?", " ", MessageBoxButtons.YesNo);
+            if (dialogResult == DialogResult.Yes)
             {
-                try
+                if (!voteStarted && voteTimeButton.Value != 0)
                 {
-                    if (SQLConn.State == ConnectionState.Open)
+                    try
                     {
-                        //disable stuff
-                        voteTimeButton.Enabled = false;
-                        startVoteButton.Enabled = false;
-                        déconnexionToolStripMenuItem.Enabled = false;
-                        endVoteButton.Enabled = true;
+                        if (SQLConn.State == ConnectionState.Open)
+                        {
+                            //disable stuff
+                            voteTimeButton.Enabled = false;
+                            startVoteButton.Enabled = false;
+                            déconnexionToolStripMenuItem.Enabled = false;
+                            endVoteButton.Enabled = true;
 
 
-                        voteTimeLeftLabel.Text = Math.Floor(voteTimeButton.Value).ToString() + ":" + Math.Round((voteTimeButton.Value - Math.Floor(voteTimeButton.Value)) * 60).ToString().PadLeft(2, '0');
+                            voteTimeLeftLabel.Text = Math.Floor(voteTimeButton.Value).ToString() + ":" + Math.Round((voteTimeButton.Value - Math.Floor(voteTimeButton.Value)) * 60).ToString().PadLeft(2, '0');
 
-                        //clear the has voted
-                        string query = "UPDATE vars SET voteStarted = 1";
-                        MySqlCommand cmd = new MySqlCommand(query, this.SQLConn);
-                        cmd.ExecuteNonQuery();
+                            //clear the has voted
+                            string query = "UPDATE vars SET voteStarted = 1";
+                            MySqlCommand cmd = new MySqlCommand(query, this.SQLConn);
+                            cmd.ExecuteNonQuery();
 
-                        //delete the votes
-                        query = "DELETE FROM voteHistory";
-                        cmd = new MySqlCommand(query, this.SQLConn);
-                        cmd.ExecuteNonQuery();
+                            //delete the votes
+                            query = "DELETE FROM voteHistory";
+                            cmd = new MySqlCommand(query, this.SQLConn);
+                            cmd.ExecuteNonQuery();
 
-                        //give the people their right to vote
-                        //by the people, for the people
-                        //equality and justice for all
-                        query = "UPDATE members SET hasvoted = 0";
-                        cmd = new MySqlCommand(query, this.SQLConn);
-                        cmd.ExecuteNonQuery();
+                            //give the people their right to vote
+                            //by the people, for the people
+                            //equality and justice for all
+                            query = "UPDATE members SET hasvoted = 0";
+                            cmd = new MySqlCommand(query, this.SQLConn);
+                            cmd.ExecuteNonQuery();
 
-                        voteCount = 0;
-                        voteTimer.Start();
-                        voteStarted = true;
+                            voteCount = 0;
+                            voteTimer.Start();
+                            voteStarted = true;
+                            voteStart = DateTime.Now;
+                        }
+                        else
+                        {
+                            MessageBox.Show("Auncune connexion de base de données.");
+                        }
                     }
-                    else
+                    catch (NullReferenceException)
                     {
                         MessageBox.Show("Auncune connexion de base de données.");
                     }
                 }
-                catch (NullReferenceException)
-                {
-                    MessageBox.Show("Auncune connexion de base de données.");
-                }
             }
-
         }
 
         private void endVoteButton_Click(object sender, EventArgs e)
         {
-            if (voteStarted)
+            DialogResult dialogResult = MessageBox.Show("Êtes-vous sûr que vous voulez arrêter le vote?", " ", MessageBoxButtons.YesNo);
+            if (dialogResult == DialogResult.Yes)
             {
-                //disable stuff
-                voteTimeButton.Enabled = true;
-                startVoteButton.Enabled = true;
-                déconnexionToolStripMenuItem.Enabled = true;
-                endVoteButton.Enabled = false;
+                if (voteStarted)
+                {
+                    //disable stuff
+                    voteTimeButton.Enabled = true;
+                    startVoteButton.Enabled = true;
+                    déconnexionToolStripMenuItem.Enabled = true;
+                    endVoteButton.Enabled = false;
 
-                voteTimeLeftLabel.Text = "0:00";
+                    voteTimeLeftLabel.Text = "0:00";
 
-                voteTimer.Stop();
+                    voteTimer.Stop();
 
-                string query = "UPDATE vars SET voteStarted = 0";
-                MySqlCommand cmd = new MySqlCommand(query, this.SQLConn);
-                cmd.ExecuteNonQuery();
+                    string query = "UPDATE vars SET voteStarted = 0";
+                    MySqlCommand cmd = new MySqlCommand(query, this.SQLConn);
+                    cmd.ExecuteNonQuery();
 
-                voteStarted = false;
+                    voteStarted = false;
+                }
             }
         }
 
