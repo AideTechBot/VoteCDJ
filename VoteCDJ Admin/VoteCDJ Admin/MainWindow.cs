@@ -558,6 +558,80 @@ namespace VoteCDJ_Admin
 
         private void exportResultsToolStripMenuItem_Click_1(object sender, EventArgs e)
         {
+            if( getTotalVotes(-1) > 0 && voteStarted == false)
+            {
+
+                saveFileDialog.Filter = "Execl files (*.xls)|*.xls";
+                saveFileDialog.FilterIndex = 0;
+                saveFileDialog.RestoreDirectory = true;
+                saveFileDialog.CreatePrompt = true;
+                saveFileDialog.Title = "Exporter les résultats vers";
+                if (this.saveFileDialog.ShowDialog() == DialogResult.OK)
+                {
+                    Excel.Application xlApp = new Excel.Application();
+
+                    if (xlApp == null)
+                    {
+                        MessageBox.Show("Excel n'est pas installé.");
+                        return;
+                    }
+
+
+                    Excel.Workbook xlWorkBook;
+                    Excel.Worksheet xlWorkSheet;
+                    object misValue = System.Reflection.Missing.Value;
+
+                    xlWorkBook = xlApp.Workbooks.Add(misValue);
+                    xlWorkSheet = (Excel.Worksheet)xlWorkBook.Worksheets.get_Item(1);
+                    //xlWorkSheet.Cells[1, 1] = "Sheet 1 content";
+
+                    string query = "Select name,id FROM candidates ORDER by id";
+
+                    MySqlCommand cmd = new MySqlCommand(query, this.SQLConn);
+                    MySqlDataReader reader = cmd.ExecuteReader();
+
+                    int x = 1;
+                    int y = 1;
+                    while (reader.Read())
+                    {
+                        string name = reader.GetString(0);
+                        xlWorkSheet.Cells[x, y] = name;
+                        x++;
+                    }
+
+                    reader.Close();
+
+                    query = "SELECT candidateID,Count(*) as 'votes' FROM voteHistory GROUP BY candidateID;";
+
+                    cmd = new MySqlCommand(query, this.SQLConn);
+                    reader = cmd.ExecuteReader();
+
+                    x = 1;
+                    y = 2;
+                    while (reader.Read())
+                    {
+                        int votes = reader.GetInt32(1);
+                        xlWorkSheet.Cells[x, y] = votes;
+                        x++;
+                    }
+
+                    reader.Close();
+                    
+
+
+                    xlWorkBook.SaveAs(this.saveFileDialog.FileName, Excel.XlFileFormat.xlWorkbookNormal, misValue, misValue, misValue, misValue, Excel.XlSaveAsAccessMode.xlExclusive, misValue, misValue, misValue, misValue, misValue);
+                    xlWorkBook.Close(true, misValue, misValue);
+                    xlApp.Quit();
+
+                    releaseObject(xlWorkSheet);
+                    releaseObject(xlWorkBook);
+                    releaseObject(xlApp);
+                }
+            }
+            else
+            {
+                MessageBox.Show("Aucun résultats disponibles.");
+            }
         }
 
         private void addCandidatesButton_Click(object sender, EventArgs e)
@@ -580,5 +654,22 @@ namespace VoteCDJ_Admin
             }
         }
 
+        private void releaseObject(object obj)
+        {
+            try
+            {
+                System.Runtime.InteropServices.Marshal.ReleaseComObject(obj);
+                obj = null;
+            }
+            catch (Exception ex)
+            {
+                obj = null;
+                MessageBox.Show("Unable to release the Object " + ex.ToString());
+            }
+            finally
+            {
+                GC.Collect();
+            }
+        } 
     }
 }
