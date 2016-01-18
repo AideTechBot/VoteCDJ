@@ -22,6 +22,7 @@ namespace VoteCDJ_Admin
         public bool voteStarted = false;
         public int voteCount = 0;
         public MemoryStream chartSave = new MemoryStream();
+        public DateTime voteStart;
 
         public MainWindow()
         {
@@ -298,9 +299,8 @@ namespace VoteCDJ_Admin
                 //TODO MAKE A SETTING FOR NUM OF PEOPLE AND MAKE GRAPH DYNAMIC
                 candidateChart.Series[0].Points.Clear();
 
-                DateTime now = DateTime.Now;
-                candidateChart.ChartAreas[0].AxisX.Minimum = now.AddHours(-5).ToOADate();
-                candidateChart.ChartAreas[0].AxisX.Maximum = now.AddHours(0).ToOADate();
+                candidateChart.ChartAreas[0].AxisX.Minimum = voteStart.ToOADate();
+                candidateChart.ChartAreas[0].AxisX.Maximum = voteStart.AddHours((double)voteTimeButton.Value).ToOADate();
 
                 candidateChart.ChartAreas[0].AxisY.Maximum = 10;
 
@@ -310,7 +310,7 @@ namespace VoteCDJ_Admin
                 cmd = new MySqlCommand(query, this.SQLConn);
                 reader = cmd.ExecuteReader();
 
-                candidateChart.Series[0].Points.AddXY(DateTime.Now.AddHours(-5).ToOADate(), 0);
+                candidateChart.Series[0].Points.AddXY(voteStart.ToOADate(), 0);
                 int voteNum = 0;
                 while (reader.Read())
                 {
