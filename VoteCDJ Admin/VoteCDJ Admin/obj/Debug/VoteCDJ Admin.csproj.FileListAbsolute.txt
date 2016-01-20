@@ -25,3 +25,5 @@ D:\Manuel\Github\VoteCDJ\VoteCDJ Admin\VoteCDJ Admin\obj\Debug\VoteCDJ Admin.csp
 D:\Manuel\Github\VoteCDJ\VoteCDJ Admin\VoteCDJ Admin\obj\Debug\VoteCDJ Admin.csproj.ResolveComReference.cache
 D:\Manuel\Github\VoteCDJ\VoteCDJ Admin\VoteCDJ Admin\obj\Debug\VoteCDJ_Admin.addCandidatesWindow.resources
 D:\Manuel\Github\VoteCDJ\VoteCDJ Admin\VoteCDJ Admin\obj\Debug\VoteCDJ_Admin.nameMenu.resources
+D:\Manuel\Github\VoteCDJ\VoteCDJ Admin\VoteCDJ Admin\bin\Debug\Newtonsoft.Json.dll
+D:\Manuel\Github\VoteCDJ\VoteCDJ Admin\VoteCDJ Admin\bin\Debug\Newtonsoft.Json.xml

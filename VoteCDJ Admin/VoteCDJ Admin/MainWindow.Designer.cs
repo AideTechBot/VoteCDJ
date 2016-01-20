@@ -81,6 +81,7 @@
             this.voteTimer = new System.Windows.Forms.Timer(this.components);
             this.UIUpdater = new System.Windows.Forms.Timer(this.components);
             this.saveFileDialog = new System.Windows.Forms.SaveFileDialog();
+            this.openFileDialog = new System.Windows.Forms.OpenFileDialog();
             this.tableLayoutPanel1.SuspendLayout();
             this.panel2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.candidateChart)).BeginInit();
@@ -564,6 +565,7 @@
             this.importPassToolStripMenuItem.Name = "importPassToolStripMenuItem";
             this.importPassToolStripMenuItem.Size = new System.Drawing.Size(231, 22);
             this.importPassToolStripMenuItem.Text = "Importer les mots de passe";
+            this.importPassToolStripMenuItem.Click += new System.EventHandler(this.importPassToolStripMenuItem_Click);
             // 
             // clearPassToolStripMenuItem
             // 
@@ -595,8 +597,9 @@
             this.UIUpdater.Interval = 1000;
             this.UIUpdater.Tick += new System.EventHandler(this.UIUpdater_Tick);
             // 
-            // saveFileDialog
+            // openFileDialog
             // 
+            this.openFileDialog.FileName = "openFileDialog";
             // 
             // MainWindow
             // 
@@ -685,6 +688,7 @@
         private System.Windows.Forms.ToolStripMenuItem resetVoteToolStripMenuItem;
         private System.Windows.Forms.Button addCandidatesButton;
         private System.Windows.Forms.SaveFileDialog saveFileDialog;
+        private System.Windows.Forms.OpenFileDialog openFileDialog;
 
     }
 }

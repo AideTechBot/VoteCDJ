@@ -11,6 +11,10 @@ using MySql.Data;
 using MySql.Data.MySqlClient;
 using System.IO;
 using Excel = Microsoft.Office.Interop.Excel;
+using System.Security.Cryptography;
+using System.Net;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 
 namespace VoteCDJ_Admin
 {
@@ -28,6 +32,8 @@ namespace VoteCDJ_Admin
         {
             InitializeComponent();
         }
+
+        #region functions;
 
         //COUNT ALL THE CANDIDATES VOTES
         private int getNumVotes(int candidateID)
@@ -93,6 +99,26 @@ namespace VoteCDJ_Admin
 
             return candidateID;
         }
+
+        private void releaseObject(object obj)
+        {
+            try
+            {
+                System.Runtime.InteropServices.Marshal.ReleaseComObject(obj);
+                obj = null;
+            }
+            catch (Exception ex)
+            {
+                obj = null;
+                MessageBox.Show("Unable to release the Object " + ex.ToString());
+            }
+            finally
+            {
+                GC.Collect();
+            }
+        }
+
+        #endregion;
 
         private void MainWindow_Load(object sender, EventArgs e)
         {
@@ -654,21 +680,100 @@ namespace VoteCDJ_Admin
             }
         }
 
-        private void releaseObject(object obj)
+        private void importPassToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            try
+            if (SQLConn.State == ConnectionState.Open)
             {
-                System.Runtime.InteropServices.Marshal.ReleaseComObject(obj);
-                obj = null;
+                if (getTotalVotes(-1) == 0 && !voteStarted)
+                {
+                    openFileDialog.Filter = "Execl files (*.xls)|*.xls";
+                    openFileDialog.FilterIndex = 0;
+                    openFileDialog.RestoreDirectory = true;
+                    openFileDialog.Title = "Importer";
+                    if (this.openFileDialog.ShowDialog() == DialogResult.OK)
+                    {
+                        //open the excel file and read the credentials
+                        Excel.Application xlApp ;
+                        Excel.Workbook xlWorkBook ;
+                        Excel.Worksheet xlWorkSheet ;
+                        Excel.Range range ;
+
+                        int rCnt = 0;
+                        int cCnt = 0;
+
+                        xlApp = new Excel.Application();
+                        xlWorkBook = xlApp.Workbooks.Open(this.openFileDialog.FileName, 0, true, 5, "", "", true, Microsoft.Office.Interop.Excel.XlPlatform.xlWindows, "\t", false, false, 0, true, 1, 0);
+                        xlWorkSheet = (Excel.Worksheet)xlWorkBook.Worksheets.get_Item(1);
+
+                        range = xlWorkSheet.UsedRange;
+
+                        for (rCnt = 1; rCnt <= range.Rows.Count; rCnt++)
+                        {
+                            string username = "";
+                            string password = "";
+                            int grade = 12;
+                            for (cCnt = 1; cCnt <= range.Columns.Count; cCnt++)
+                            {
+                                var value = (range.Cells[rCnt, cCnt] as Excel.Range).Value2;
+                                if (cCnt == 1)
+                                {
+                                    username = (string)value;
+                                }
+                                else if (cCnt == 2)
+                                {
+                                    password = (string)value;
+                                }
+                                else if (cCnt == 3)
+                                {
+                                    grade = Convert.ToInt32(value);
+                                }
+                                
+                            }
+
+                            //add the user to the database by hashing his passwords
+                            var request = (HttpWebRequest)WebRequest.Create("http://192.168.2.21/salt.php");
+
+                            var postData = "pass=" + password;
+                            var data = Encoding.ASCII.GetBytes(postData);
+
+                            request.Method = "POST";
+                            request.ContentType = "application/x-www-form-urlencoded";
+                            request.ContentLength = data.Length;
+
+                            using (var stream = request.GetRequestStream())
+                            {
+                                stream.Write(data, 0, data.Length);
+                            }
+
+                            var response = (HttpWebResponse)request.GetResponse();
+
+                            var responseString = new StreamReader(response.GetResponseStream()).ReadToEnd();
+
+                            JObject o = JObject.Parse(responseString);
+                            Console.WriteLine(o["salt"]);
+                            Console.WriteLine(o["password"]);
+
+                            string query = "INSERT INTO members (username, password, salt,  hasvoted, grade) VALUES (\"" + username + "\", \"" + o["password"] + "\", \"" + o["salt"] + "\", 0, " + grade.ToString() + ")";
+                            MySqlCommand cmd = new MySqlCommand(query, this.SQLConn);
+                            cmd.ExecuteNonQuery();
+                        }
+
+                        xlWorkBook.Close(true, null, null);
+                        xlApp.Quit();
+
+                        releaseObject(xlWorkSheet);
+                        releaseObject(xlWorkBook);
+                        releaseObject(xlApp);
+                    }
+                }
+                else
+                {
+                    MessageBox.Show("Vote en cours.");
+                }
             }
-            catch (Exception ex)
+            else
             {
-                obj = null;
-                MessageBox.Show("Unable to release the Object " + ex.ToString());
-            }
-            finally
-            {
-                GC.Collect();
+                MessageBox.Show("Auncune connexion de base de données.");
             }
         } 
     }
