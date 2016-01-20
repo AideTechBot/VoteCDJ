@@ -43,7 +43,6 @@ function login($username, $password, $mysqli) {
         while($row = $vars->fetch_assoc()) {
             $voteStarted = $row['voteStarted'];
         }
-        error_log($voteStarted);
         // hash the password with the unique salt.
         $password = hash('sha512', $password . $salt);
         if ($stmt->num_rows == 1) {
@@ -80,11 +79,13 @@ function login($username, $password, $mysqli) {
                             return 3;
                         }
                     } else {
+                        error_log("Has already voted.");
                         return 2;
                     }
                 } else {
                     // Password is not correct
                     // We record this attempt in the database
+                    error_log("Incorrect password.");
                     $now = time();
                     $mysqli->query("INSERT INTO login_attempts(user_id, time)
                                     VALUES ('$user_id', '$now')");
@@ -93,6 +94,7 @@ function login($username, $password, $mysqli) {
             }
         } else {
             // No user exists.
+            error_log("User doesn't exist.");
             return 0;
         }
     }
