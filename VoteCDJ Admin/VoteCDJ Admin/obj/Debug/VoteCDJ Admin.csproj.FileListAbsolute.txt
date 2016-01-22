@@ -27,3 +27,5 @@ D:\Manuel\Github\VoteCDJ\VoteCDJ Admin\VoteCDJ Admin\obj\Debug\VoteCDJ_Admin.add
 D:\Manuel\Github\VoteCDJ\VoteCDJ Admin\VoteCDJ Admin\obj\Debug\VoteCDJ_Admin.nameMenu.resources
 D:\Manuel\Github\VoteCDJ\VoteCDJ Admin\VoteCDJ Admin\bin\Debug\Newtonsoft.Json.dll
 D:\Manuel\Github\VoteCDJ\VoteCDJ Admin\VoteCDJ Admin\bin\Debug\Newtonsoft.Json.xml
+D:\Manuel\Github\VoteCDJ\VoteCDJ Admin\VoteCDJ Admin\obj\Debug\VoteCDJ_Admin.userAddWindow.resources
+D:\Manuel\Github\VoteCDJ\VoteCDJ Admin\VoteCDJ Admin\obj\Debug\VoteCDJ_Admin.loginWindow.resources

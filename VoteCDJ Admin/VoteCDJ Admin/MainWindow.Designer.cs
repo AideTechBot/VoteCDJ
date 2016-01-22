@@ -75,7 +75,6 @@
             this.connexionsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.nouvelleConnexionToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.importPassToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.clearPassToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.resetVoteToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.helpToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.voteTimer = new System.Windows.Forms.Timer(this.components);
@@ -546,7 +545,6 @@
             this.connexionsToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.nouvelleConnexionToolStripMenuItem,
             this.importPassToolStripMenuItem,
-            this.clearPassToolStripMenuItem,
             this.resetVoteToolStripMenuItem});
             this.connexionsToolStripMenuItem.Name = "connexionsToolStripMenuItem";
             this.connexionsToolStripMenuItem.Size = new System.Drawing.Size(107, 20);
@@ -555,7 +553,7 @@
             // nouvelleConnexionToolStripMenuItem
             // 
             this.nouvelleConnexionToolStripMenuItem.Name = "nouvelleConnexionToolStripMenuItem";
-            this.nouvelleConnexionToolStripMenuItem.Size = new System.Drawing.Size(231, 22);
+            this.nouvelleConnexionToolStripMenuItem.Size = new System.Drawing.Size(215, 22);
             this.nouvelleConnexionToolStripMenuItem.Text = "Nouvelle Connexion";
             this.nouvelleConnexionToolStripMenuItem.Click += new System.EventHandler(this.nouvelleConnexionToolStripMenuItem_Click);
             // 
@@ -563,22 +561,15 @@
             // 
             this.importPassToolStripMenuItem.Enabled = false;
             this.importPassToolStripMenuItem.Name = "importPassToolStripMenuItem";
-            this.importPassToolStripMenuItem.Size = new System.Drawing.Size(231, 22);
+            this.importPassToolStripMenuItem.Size = new System.Drawing.Size(215, 22);
             this.importPassToolStripMenuItem.Text = "Importer les mots de passe";
             this.importPassToolStripMenuItem.Click += new System.EventHandler(this.importPassToolStripMenuItem_Click);
-            // 
-            // clearPassToolStripMenuItem
-            // 
-            this.clearPassToolStripMenuItem.Enabled = false;
-            this.clearPassToolStripMenuItem.Name = "clearPassToolStripMenuItem";
-            this.clearPassToolStripMenuItem.Size = new System.Drawing.Size(231, 22);
-            this.clearPassToolStripMenuItem.Text = "Effacer tous les mots de passe";
             // 
             // resetVoteToolStripMenuItem
             // 
             this.resetVoteToolStripMenuItem.Enabled = false;
             this.resetVoteToolStripMenuItem.Name = "resetVoteToolStripMenuItem";
-            this.resetVoteToolStripMenuItem.Size = new System.Drawing.Size(231, 22);
+            this.resetVoteToolStripMenuItem.Size = new System.Drawing.Size(215, 22);
             this.resetVoteToolStripMenuItem.Text = "Réinitialiser le vote";
             // 
             // helpToolStripMenuItem
@@ -670,7 +661,7 @@
         private System.Windows.Forms.Label candidatePercentVotesLabel;
         private System.Windows.Forms.DataVisualization.Charting.Chart candidateChart;
         private System.Windows.Forms.Timer voteTimer;
-        private System.Windows.Forms.Timer UIUpdater;
+        public System.Windows.Forms.Timer UIUpdater;
         private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.ComboBox comboBoxPost;
         private System.Windows.Forms.TabControl tabControl1;
@@ -683,7 +674,6 @@
         private System.Windows.Forms.Label voteHourLabel;
         private System.Windows.Forms.Label totalVotesLabel;
         private System.Windows.Forms.ToolStripMenuItem importPassToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem clearPassToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem exportResultsToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem resetVoteToolStripMenuItem;
         private System.Windows.Forms.Button addCandidatesButton;

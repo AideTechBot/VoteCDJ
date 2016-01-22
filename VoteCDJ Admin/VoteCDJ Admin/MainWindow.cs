@@ -132,7 +132,6 @@ namespace VoteCDJ_Admin
 
             nouvelleConnexionToolStripMenuItem.Enabled = false;
             importPassToolStripMenuItem.Enabled = true;
-            clearPassToolStripMenuItem.Enabled = true;
             resetVoteToolStripMenuItem.Enabled = true; 
 
 
@@ -278,7 +277,6 @@ namespace VoteCDJ_Admin
 
                 nouvelleConnexionToolStripMenuItem.Enabled = true;
                 importPassToolStripMenuItem.Enabled = false;
-                clearPassToolStripMenuItem.Enabled = false;
                 resetVoteToolStripMenuItem.Enabled = false; 
 
                 histoChart.Series[0].Points.Clear();
@@ -418,7 +416,7 @@ namespace VoteCDJ_Admin
                     int totalVotes = getTotalVotes(-1);
                     totalVotesLabel.Text = totalVotes.ToString() + " votes au total";
 
-                    string query = "SELECT * FROM voteHistory WHERE voteTime >= DATE_SUB(NOW(),INTERVAL 1 HOUR) AND postID = 1";
+                    string query = "SELECT * FROM voteHistory WHERE voteTime >= DATE_SUB(NOW(),INTERVAL 1 HOUR)";
 
                     MySqlCommand cmd = new MySqlCommand(query, this.SQLConn);
                     MySqlDataReader reader = cmd.ExecuteReader();
@@ -686,85 +684,8 @@ namespace VoteCDJ_Admin
             {
                 if (getTotalVotes(-1) == 0 && !voteStarted)
                 {
-                    openFileDialog.Filter = "Execl files (*.xls)|*.xls";
-                    openFileDialog.FilterIndex = 0;
-                    openFileDialog.RestoreDirectory = true;
-                    openFileDialog.Title = "Importer";
-                    if (this.openFileDialog.ShowDialog() == DialogResult.OK)
-                    {
-                        //open the excel file and read the credentials
-                        Excel.Application xlApp ;
-                        Excel.Workbook xlWorkBook ;
-                        Excel.Worksheet xlWorkSheet ;
-                        Excel.Range range ;
-
-                        int rCnt = 0;
-                        int cCnt = 0;
-
-                        xlApp = new Excel.Application();
-                        xlWorkBook = xlApp.Workbooks.Open(this.openFileDialog.FileName, 0, true, 5, "", "", true, Microsoft.Office.Interop.Excel.XlPlatform.xlWindows, "\t", false, false, 0, true, 1, 0);
-                        xlWorkSheet = (Excel.Worksheet)xlWorkBook.Worksheets.get_Item(1);
-
-                        range = xlWorkSheet.UsedRange;
-
-                        for (rCnt = 1; rCnt <= range.Rows.Count; rCnt++)
-                        {
-                            string username = "";
-                            string password = "";
-                            int grade = 12;
-                            for (cCnt = 1; cCnt <= range.Columns.Count; cCnt++)
-                            {
-                                var value = (range.Cells[rCnt, cCnt] as Excel.Range).Value2;
-                                if (cCnt == 1)
-                                {
-                                    username = (string)value;
-                                }
-                                else if (cCnt == 2)
-                                {
-                                    password = (string)value;
-                                }
-                                else if (cCnt == 3)
-                                {
-                                    grade = Convert.ToInt32(value);
-                                }
-                                
-                            }
-
-                            //add the user to the database by hashing his passwords
-                            var request = (HttpWebRequest)WebRequest.Create("http://192.168.2.21/salt.php");
-
-                            var postData = "pass=" + password;
-                            var data = Encoding.ASCII.GetBytes(postData);
-
-                            request.Method = "POST";
-                            request.ContentType = "application/x-www-form-urlencoded";
-                            request.ContentLength = data.Length;
-
-                            using (var stream = request.GetRequestStream())
-                            {
-                                stream.Write(data, 0, data.Length);
-                            }
-
-                            var response = (HttpWebResponse)request.GetResponse();
-
-                            var responseString = new StreamReader(response.GetResponseStream()).ReadToEnd();
-
-                            JObject o = JObject.Parse(responseString);
-                            Console.WriteLine(o["salt"]);
-                            Console.WriteLine(o["password"]);
-
-                            string query = "INSERT INTO members (username, password, salt,  hasvoted, grade) VALUES (\"" + username + "\", \"" + o["password"] + "\", \"" + o["salt"] + "\", 0, " + grade.ToString() + ")";
-                            MySqlCommand cmd = new MySqlCommand(query, this.SQLConn);
-                            cmd.ExecuteNonQuery();
-                        }
-
-                        xlWorkBook.Close(true, null, null);
-                        xlApp.Quit();
-
-                        releaseObject(xlWorkSheet);
-                        releaseObject(xlWorkBook);
-                        releaseObject(xlApp);
-                    }
+                    userAddWindow userAddWindow = new userAddWindow();
+                    userAddWindow.ShowDialog();
                 }
                 else
                 {
@@ -775,6 +696,32 @@ namespace VoteCDJ_Admin
             {
                 MessageBox.Show("Auncune connexion de base de données.");
             }
-        } 
+        }
+
+        private void clearPassToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (SQLConn.State == ConnectionState.Open)
+            {
+                if (getTotalVotes(-1) == 0 && !voteStarted)
+                {
+                    DialogResult dialogResult = MessageBox.Show("Êtes-vous sûr que vous voulez supprimer les mots de passe?", " ", MessageBoxButtons.YesNo);
+                     if (dialogResult == DialogResult.Yes)
+                     {
+                         string query = "DELETE FROM members WHERE username != \"test_user\"";
+                         MySqlCommand cmd = new MySqlCommand(query, this.SQLConn);
+                         cmd.ExecuteNonQuery();
+                         MessageBox.Show("Les mots de passe ont été supprimés avec succès");
+                     }
+                }
+                else
+                {
+                    MessageBox.Show("Vote en cours.");
+                }
+            }
+            else
+            {
+                MessageBox.Show("Auncune connexion de base de données.");
+            }
+        }
     }
 }
