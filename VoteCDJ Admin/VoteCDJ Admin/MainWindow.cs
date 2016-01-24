@@ -178,42 +178,49 @@ namespace VoteCDJ_Admin
             DialogResult dialogResult = MessageBox.Show("Êtes-vous sûr que vous voulez effacer tous les résultats du vote et commencer un nouveau vote?", " ", MessageBoxButtons.YesNo);
             if (dialogResult == DialogResult.Yes)
             {
-                if (!voteStarted && voteTimeButton.Value != 0)
+                if (!voteStarted)
                 {
                     try
                     {
                         if (SQLConn.State == ConnectionState.Open)
                         {
-                            //disable stuff
-                            voteTimeButton.Enabled = false;
-                            startVoteButton.Enabled = false;
-                            déconnexionToolStripMenuItem.Enabled = false;
-                            endVoteButton.Enabled = true;
+                            if (voteTimeButton.Value != Decimal.Zero)
+                            {
+                                //disable stuff
+                                voteTimeButton.Enabled = false;
+                                startVoteButton.Enabled = false;
+                                déconnexionToolStripMenuItem.Enabled = false;
+                                endVoteButton.Enabled = true;
 
 
-                            voteTimeLeftLabel.Text = Math.Floor(voteTimeButton.Value).ToString() + ":" + Math.Round((voteTimeButton.Value - Math.Floor(voteTimeButton.Value)) * 60).ToString().PadLeft(2, '0');
+                                voteTimeLeftLabel.Text = Math.Floor(voteTimeButton.Value).ToString() + ":" + Math.Round((voteTimeButton.Value - Math.Floor(voteTimeButton.Value)) * 60).ToString().PadLeft(2, '0');
 
-                            //clear the has voted
-                            string query = "UPDATE vars SET voteStarted = 1";
-                            MySqlCommand cmd = new MySqlCommand(query, this.SQLConn);
-                            cmd.ExecuteNonQuery();
+                                //clear the has voted
+                                string query = "UPDATE vars SET voteStarted = 1";
+                                MySqlCommand cmd = new MySqlCommand(query, this.SQLConn);
+                                cmd.ExecuteNonQuery();
 
-                            //delete the votes
-                            query = "DELETE FROM voteHistory";
-                            cmd = new MySqlCommand(query, this.SQLConn);
-                            cmd.ExecuteNonQuery();
+                                //delete the votes
+                                query = "DELETE FROM voteHistory";
+                                cmd = new MySqlCommand(query, this.SQLConn);
+                                cmd.ExecuteNonQuery();
 
-                            //give the people their right to vote
-                            //by the people, for the people
-                            //equality and justice for all
-                            query = "UPDATE members SET hasvoted = 0";
-                            cmd = new MySqlCommand(query, this.SQLConn);
-                            cmd.ExecuteNonQuery();
+                                //give the people their right to vote
+                                //by the people, for the people
+                                //equality and justice for all
+                                query = "UPDATE members SET hasvoted = 0";
+                                cmd = new MySqlCommand(query, this.SQLConn);
+                                cmd.ExecuteNonQuery();
 
-                            voteCount = 0;
-                            voteTimer.Start();
-                            voteStarted = true;
-                            voteStart = DateTime.Now;
+                                voteCount = 0;
+                                voteTimer.Start();
+                                voteStarted = true;
+                                voteStart = DateTime.Now;
+                            }
+                            else
+                            {
+                                MessageBox.Show("Paramètres invalides.");
+                            }
                         }
                         else
                         {
