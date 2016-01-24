@@ -29,14 +29,14 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea4 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
-            System.Windows.Forms.DataVisualization.Charting.Series series4 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea7 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
+            System.Windows.Forms.DataVisualization.Charting.Series series7 = new System.Windows.Forms.DataVisualization.Charting.Series();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainWindow));
-            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea5 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
-            System.Windows.Forms.DataVisualization.Charting.Series series5 = new System.Windows.Forms.DataVisualization.Charting.Series();
-            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea6 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
-            System.Windows.Forms.DataVisualization.Charting.Legend legend2 = new System.Windows.Forms.DataVisualization.Charting.Legend();
-            System.Windows.Forms.DataVisualization.Charting.Series series6 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea8 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
+            System.Windows.Forms.DataVisualization.Charting.Series series8 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea9 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
+            System.Windows.Forms.DataVisualization.Charting.Legend legend3 = new System.Windows.Forms.DataVisualization.Charting.Legend();
+            System.Windows.Forms.DataVisualization.Charting.Series series9 = new System.Windows.Forms.DataVisualization.Charting.Series();
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             this.panel2 = new System.Windows.Forms.Panel();
             this.candidateChart = new System.Windows.Forms.DataVisualization.Charting.Chart();
@@ -133,9 +133,9 @@
             // 
             // candidateChart
             // 
-            chartArea4.CursorX.LineWidth = 3;
-            chartArea4.Name = "ChartArea1";
-            this.candidateChart.ChartAreas.Add(chartArea4);
+            chartArea7.CursorX.LineWidth = 3;
+            chartArea7.Name = "ChartArea1";
+            this.candidateChart.ChartAreas.Add(chartArea7);
             this.candidateChart.Cursor = System.Windows.Forms.Cursors.Arrow;
             this.candidateChart.Dock = System.Windows.Forms.DockStyle.Bottom;
             this.candidateChart.Location = new System.Drawing.Point(0, 91);
@@ -143,18 +143,18 @@
             this.candidateChart.Palette = System.Windows.Forms.DataVisualization.Charting.ChartColorPalette.None;
             this.candidateChart.PaletteCustomColors = new System.Drawing.Color[] {
         System.Drawing.Color.Crimson};
-            series4.BackGradientStyle = System.Windows.Forms.DataVisualization.Charting.GradientStyle.LeftRight;
-            series4.BorderWidth = 2;
-            series4.ChartArea = "ChartArea1";
-            series4.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Line;
-            series4.Color = System.Drawing.Color.Red;
-            series4.IsVisibleInLegend = false;
-            series4.MarkerBorderColor = System.Drawing.Color.Turquoise;
-            series4.Name = "Series1";
-            series4.XValueType = System.Windows.Forms.DataVisualization.Charting.ChartValueType.Time;
-            series4.YValuesPerPoint = 2;
-            series4.YValueType = System.Windows.Forms.DataVisualization.Charting.ChartValueType.Int32;
-            this.candidateChart.Series.Add(series4);
+            series7.BackGradientStyle = System.Windows.Forms.DataVisualization.Charting.GradientStyle.LeftRight;
+            series7.BorderWidth = 2;
+            series7.ChartArea = "ChartArea1";
+            series7.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Line;
+            series7.Color = System.Drawing.Color.Red;
+            series7.IsVisibleInLegend = false;
+            series7.MarkerBorderColor = System.Drawing.Color.Turquoise;
+            series7.Name = "Series1";
+            series7.XValueType = System.Windows.Forms.DataVisualization.Charting.ChartValueType.Time;
+            series7.YValuesPerPoint = 2;
+            series7.YValueType = System.Windows.Forms.DataVisualization.Charting.ChartValueType.Int32;
+            this.candidateChart.Series.Add(series7);
             this.candidateChart.Size = new System.Drawing.Size(492, 156);
             this.candidateChart.TabIndex = 4;
             this.candidateChart.Text = "chart1";
@@ -462,18 +462,18 @@
             // 
             // histoChart
             // 
-            chartArea5.Area3DStyle.Inclination = 20;
-            chartArea5.Area3DStyle.Rotation = 5;
-            chartArea5.Name = "ChartArea1";
-            this.histoChart.ChartAreas.Add(chartArea5);
+            chartArea8.Area3DStyle.Inclination = 20;
+            chartArea8.Area3DStyle.Rotation = 5;
+            chartArea8.Name = "ChartArea1";
+            this.histoChart.ChartAreas.Add(chartArea8);
             this.histoChart.Dock = System.Windows.Forms.DockStyle.Top;
             this.histoChart.Location = new System.Drawing.Point(3, 3);
             this.histoChart.Name = "histoChart";
-            series5.ChartArea = "ChartArea1";
-            series5.Name = "John";
-            series5.XValueType = System.Windows.Forms.DataVisualization.Charting.ChartValueType.String;
-            series5.YValuesPerPoint = 6;
-            this.histoChart.Series.Add(series5);
+            series8.ChartArea = "ChartArea1";
+            series8.Name = "John";
+            series8.XValueType = System.Windows.Forms.DataVisualization.Charting.ChartValueType.String;
+            series8.YValuesPerPoint = 6;
+            this.histoChart.Series.Add(series8);
             this.histoChart.Size = new System.Drawing.Size(466, 194);
             this.histoChart.TabIndex = 0;
             this.histoChart.Text = "chart2";
@@ -491,23 +491,23 @@
             // 
             // piChart
             // 
-            chartArea6.Area3DStyle.Inclination = 35;
-            chartArea6.Area3DStyle.IsRightAngleAxes = false;
-            chartArea6.Area3DStyle.PointDepth = 250;
-            chartArea6.Area3DStyle.Rotation = 0;
-            chartArea6.Name = "ChartArea1";
-            this.piChart.ChartAreas.Add(chartArea6);
+            chartArea9.Area3DStyle.Inclination = 35;
+            chartArea9.Area3DStyle.IsRightAngleAxes = false;
+            chartArea9.Area3DStyle.PointDepth = 250;
+            chartArea9.Area3DStyle.Rotation = 0;
+            chartArea9.Name = "ChartArea1";
+            this.piChart.ChartAreas.Add(chartArea9);
             this.piChart.Dock = System.Windows.Forms.DockStyle.Top;
-            legend2.Name = "Legend1";
-            this.piChart.Legends.Add(legend2);
+            legend3.Name = "Legend1";
+            this.piChart.Legends.Add(legend3);
             this.piChart.Location = new System.Drawing.Point(3, 3);
             this.piChart.Name = "piChart";
-            series6.ChartArea = "ChartArea1";
-            series6.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Pie;
-            series6.CustomProperties = "PieLabelStyle=Disabled";
-            series6.Legend = "Legend1";
-            series6.Name = "Series1";
-            this.piChart.Series.Add(series6);
+            series9.ChartArea = "ChartArea1";
+            series9.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Pie;
+            series9.CustomProperties = "PieLabelStyle=Disabled";
+            series9.Legend = "Legend1";
+            series9.Name = "Series1";
+            this.piChart.Series.Add(series9);
             this.piChart.Size = new System.Drawing.Size(466, 194);
             this.piChart.TabIndex = 0;
             this.piChart.Text = "chart2";
@@ -534,6 +534,7 @@
             // 
             // exportResultsToolStripMenuItem
             // 
+            this.exportResultsToolStripMenuItem.Enabled = false;
             this.exportResultsToolStripMenuItem.Name = "exportResultsToolStripMenuItem";
             this.exportResultsToolStripMenuItem.Size = new System.Drawing.Size(181, 22);
             this.exportResultsToolStripMenuItem.Text = "Exporter les resultats";

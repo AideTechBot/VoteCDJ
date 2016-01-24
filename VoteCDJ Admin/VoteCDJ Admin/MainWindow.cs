@@ -132,6 +132,7 @@ namespace VoteCDJ_Admin
 
             nouvelleConnexionToolStripMenuItem.Enabled = false;
             importPassToolStripMenuItem.Enabled = true;
+            exportResultsToolStripMenuItem.Enabled = true;
 
 
             if (SQLConn.State == ConnectionState.Open)
@@ -283,6 +284,7 @@ namespace VoteCDJ_Admin
 
                 nouvelleConnexionToolStripMenuItem.Enabled = true;
                 importPassToolStripMenuItem.Enabled = false;
+                exportResultsToolStripMenuItem.Enabled = false;
 
                 histoChart.Series[0].Points.Clear();
                 comboBoxPost.Items.Clear();
@@ -683,19 +685,26 @@ namespace VoteCDJ_Admin
 
         private void addCandidatesButton_Click(object sender, EventArgs e)
         {
-            if (SQLConn.State == ConnectionState.Open)
+            try
             {
-                if (getTotalVotes(-1) == 0 && !voteStarted)
+                if (SQLConn.State == ConnectionState.Open)
                 {
-                    addCandidatesWindow addCandidatesWindow = new addCandidatesWindow();
-                    addCandidatesWindow.ShowDialog();
+                    if (getTotalVotes(-1) == 0 && !voteStarted)
+                    {
+                        addCandidatesWindow addCandidatesWindow = new addCandidatesWindow();
+                        addCandidatesWindow.ShowDialog();
+                    }
+                    else
+                    {
+                        MessageBox.Show("Vote en cours.");
+                    }
                 }
                 else
                 {
-                    MessageBox.Show("Vote en cours.");
+                    MessageBox.Show("Auncune connexion de base de données.");
                 }
             }
-            else
+            catch
             {
                 MessageBox.Show("Auncune connexion de base de données.");
             }
