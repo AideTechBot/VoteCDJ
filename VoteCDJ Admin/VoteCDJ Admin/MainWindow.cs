@@ -362,7 +362,25 @@ namespace VoteCDJ_Admin
             if (hoursleft < (1 / 60))
             {
                 voteCount = 0;
-                endVoteButton.PerformClick();
+
+                if (voteStarted)
+                {
+                    //disable stuff
+                    voteTimeButton.Enabled = true;
+                    startVoteButton.Enabled = true;
+                    déconnexionToolStripMenuItem.Enabled = true;
+                    endVoteButton.Enabled = false;
+
+                    voteTimeLeftLabel.Text = "0:00";
+
+                    voteTimer.Stop();
+
+                    string query = "UPDATE vars SET voteStarted = 0";
+                    MySqlCommand cmd = new MySqlCommand(query, this.SQLConn);
+                    cmd.ExecuteNonQuery();
+
+                    voteStarted = false;
+                }
             }
         }
 
