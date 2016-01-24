@@ -289,5 +289,20 @@ namespace VoteCDJ_Admin
             }
         }
 
+        private void clear_Click(object sender, EventArgs e)
+        {
+            DialogResult dialogResult = MessageBox.Show("Êtes-vous sûr que vous voulez effacer tous les utilisateurs?", " ", MessageBoxButtons.YesNo);
+            if (dialogResult == DialogResult.Yes)
+            {
+                var mainWindow = Application.OpenForms.OfType<MainWindow>().Single();
+
+                string query = "DELETE FROM members WHERE username != \"test_user\"";
+                MySqlCommand cmd = new MySqlCommand(query, mainWindow.SQLConn);
+                cmd.ExecuteNonQuery();
+
+                updateUI();
+            }
+        }
+
     }
 }
