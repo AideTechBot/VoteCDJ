@@ -75,7 +75,6 @@
             this.connexionsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.nouvelleConnexionToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.importPassToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.resetVoteToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.helpToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.voteTimer = new System.Windows.Forms.Timer(this.components);
             this.UIUpdater = new System.Windows.Forms.Timer(this.components);
@@ -544,8 +543,7 @@
             // 
             this.connexionsToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.nouvelleConnexionToolStripMenuItem,
-            this.importPassToolStripMenuItem,
-            this.resetVoteToolStripMenuItem});
+            this.importPassToolStripMenuItem});
             this.connexionsToolStripMenuItem.Name = "connexionsToolStripMenuItem";
             this.connexionsToolStripMenuItem.Size = new System.Drawing.Size(107, 20);
             this.connexionsToolStripMenuItem.Text = "Base de données";
@@ -553,7 +551,7 @@
             // nouvelleConnexionToolStripMenuItem
             // 
             this.nouvelleConnexionToolStripMenuItem.Name = "nouvelleConnexionToolStripMenuItem";
-            this.nouvelleConnexionToolStripMenuItem.Size = new System.Drawing.Size(215, 22);
+            this.nouvelleConnexionToolStripMenuItem.Size = new System.Drawing.Size(196, 22);
             this.nouvelleConnexionToolStripMenuItem.Text = "Nouvelle Connexion";
             this.nouvelleConnexionToolStripMenuItem.Click += new System.EventHandler(this.nouvelleConnexionToolStripMenuItem_Click);
             // 
@@ -561,16 +559,9 @@
             // 
             this.importPassToolStripMenuItem.Enabled = false;
             this.importPassToolStripMenuItem.Name = "importPassToolStripMenuItem";
-            this.importPassToolStripMenuItem.Size = new System.Drawing.Size(215, 22);
-            this.importPassToolStripMenuItem.Text = "Importer les mots de passe";
+            this.importPassToolStripMenuItem.Size = new System.Drawing.Size(196, 22);
+            this.importPassToolStripMenuItem.Text = "Modifier les utilisateurs";
             this.importPassToolStripMenuItem.Click += new System.EventHandler(this.importPassToolStripMenuItem_Click);
-            // 
-            // resetVoteToolStripMenuItem
-            // 
-            this.resetVoteToolStripMenuItem.Enabled = false;
-            this.resetVoteToolStripMenuItem.Name = "resetVoteToolStripMenuItem";
-            this.resetVoteToolStripMenuItem.Size = new System.Drawing.Size(215, 22);
-            this.resetVoteToolStripMenuItem.Text = "Réinitialiser le vote";
             // 
             // helpToolStripMenuItem
             // 
@@ -675,7 +666,6 @@
         private System.Windows.Forms.Label totalVotesLabel;
         private System.Windows.Forms.ToolStripMenuItem importPassToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem exportResultsToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem resetVoteToolStripMenuItem;
         private System.Windows.Forms.Button addCandidatesButton;
         private System.Windows.Forms.SaveFileDialog saveFileDialog;
         private System.Windows.Forms.OpenFileDialog openFileDialog;

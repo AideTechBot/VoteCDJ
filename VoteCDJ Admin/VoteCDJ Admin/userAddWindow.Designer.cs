@@ -35,6 +35,7 @@
             this.addButton = new System.Windows.Forms.Button();
             this.importButton = new System.Windows.Forms.Button();
             this.openFileDialog = new System.Windows.Forms.OpenFileDialog();
+            this.button2 = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // listBox
@@ -99,11 +100,22 @@
             // 
             this.openFileDialog.FileName = "openFileDialog";
             // 
+            // button2
+            // 
+            this.button2.Location = new System.Drawing.Point(195, 156);
+            this.button2.Name = "button2";
+            this.button2.Size = new System.Drawing.Size(131, 23);
+            this.button2.TabIndex = 7;
+            this.button2.Text = "Effacer tout";
+            this.button2.UseVisualStyleBackColor = true;
+            this.button2.Click += new System.EventHandler(this.clear_Click);
+            // 
             // userAddWindow
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(338, 355);
+            this.Controls.Add(this.button2);
             this.Controls.Add(this.importButton);
             this.Controls.Add(this.addButton);
             this.Controls.Add(this.deleteButton);
@@ -133,5 +145,6 @@
         private System.Windows.Forms.Button addButton;
         private System.Windows.Forms.Button importButton;
         private System.Windows.Forms.OpenFileDialog openFileDialog;
+        private System.Windows.Forms.Button button2;
     }
 }

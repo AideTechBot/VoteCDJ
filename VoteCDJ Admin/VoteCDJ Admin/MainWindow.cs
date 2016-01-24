@@ -132,7 +132,6 @@ namespace VoteCDJ_Admin
 
             nouvelleConnexionToolStripMenuItem.Enabled = false;
             importPassToolStripMenuItem.Enabled = true;
-            resetVoteToolStripMenuItem.Enabled = true; 
 
 
             if (SQLConn.State == ConnectionState.Open)
@@ -277,7 +276,6 @@ namespace VoteCDJ_Admin
 
                 nouvelleConnexionToolStripMenuItem.Enabled = true;
                 importPassToolStripMenuItem.Enabled = false;
-                resetVoteToolStripMenuItem.Enabled = false; 
 
                 histoChart.Series[0].Points.Clear();
                 comboBoxPost.Items.Clear();
