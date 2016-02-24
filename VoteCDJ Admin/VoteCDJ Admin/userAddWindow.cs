@@ -113,8 +113,6 @@ namespace VoteCDJ_Admin
                 var responseString = new StreamReader(response.GetResponseStream()).ReadToEnd();
 
                 JObject o = JObject.Parse(responseString);
-                Console.WriteLine(o["salt"]);
-                Console.WriteLine(o["password"]);
 
                 query = "INSERT INTO members (username, password, salt,  hasvoted, grade) VALUES (\"" + username + "\", \"" + o["password"] + "\", \"" + o["salt"] + "\", 0, " + grade.ToString() + ")";
                 cmd = new MySqlCommand(query, mainWindow.SQLConn);

@@ -350,7 +350,8 @@ namespace VoteCDJ_Admin
                     Console.WriteLine(voteNum.ToString() + " " + date.ToString());
                     candidateChart.Series[0].Points.AddXY(date.ToOADate(),voteNum);
                 }
-
+                double now = DateTime.Now.ToOADate();
+                candidateChart.Series[0].Points.AddXY(now, voteNum);
                 reader.Close();
             }
         }
