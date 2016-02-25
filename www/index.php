@@ -52,7 +52,8 @@ if (login_check($mysqli) == true) {
                 
             }
             else {
-                echo '<p class="titleVOTE">Vote &Eacute;l&eacute;ctronique CDJ<br><br></p>';
+                $line = fgets(fopen("school.txt", 'r'));
+                echo '<p class="titleVOTE">', $line, '<br><br></p>';
             }
             ?> 
             <form action="includewww/process_login.php" method="post" name="login_form"> 
