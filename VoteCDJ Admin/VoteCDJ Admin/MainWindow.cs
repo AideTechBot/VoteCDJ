@@ -756,5 +756,11 @@ namespace VoteCDJ_Admin
                 MessageBox.Show("Auncune connexion de base de données.");
             }
         }
+
+        private void helpToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            System.Diagnostics.Process.Start("http://aidetechbot.github.io/VoteCDJ/");
+        }
+
     }
 }
