@@ -38,7 +38,7 @@
     left:0; right:0;
     top:0; bottom:0;
     margin:auto;
-    width:400px;
+    width:275px;
     height:400px;
     border:20px solid rgba(0, 0, 0, 0.1);
     background-color: rgba(162, 140, 128, 0.9);
@@ -65,7 +65,7 @@
 .windowfooter {
 	text-align: right;
 	height: 30px;
-	width:400px;
+	width:275px;
 	position:absolute; bottom:0;
 }
 
