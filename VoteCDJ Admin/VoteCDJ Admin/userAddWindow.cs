@@ -94,7 +94,7 @@ namespace VoteCDJ_Admin
             if (already == 0)
             {
                 //add the user to the database by hashing his passwords
-                var request = (HttpWebRequest)WebRequest.Create("http://192.168.2.21/salt.php");
+                var request = (HttpWebRequest)WebRequest.Create("http://" + mainWindow.HOST_IP + "/salt.php");
 
                 var postData = "pass=" + password;
                 var data = Encoding.ASCII.GetBytes(postData);
@@ -199,7 +199,7 @@ namespace VoteCDJ_Admin
 
 
                     //add the user to the database by hashing his passwords
-                    var request = (HttpWebRequest)WebRequest.Create("http://192.168.2.21/salt.php");
+                    var request = (HttpWebRequest)WebRequest.Create("http://" + mainWindow.HOST_IP + "/salt.php");
 
                     var postData = "pass=" + password;
                     var data = Encoding.ASCII.GetBytes(postData);
