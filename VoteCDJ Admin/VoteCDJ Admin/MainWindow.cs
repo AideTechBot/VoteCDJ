@@ -511,7 +511,7 @@ namespace VoteCDJ_Admin
                         histoChart.Serializer.Save(chartSave);
                         #endregion
                     }
-                    else
+                    else if (tabControl1.SelectedTab.Text == "Camembert")
                     {
                         //PI
                         #region pi
@@ -539,7 +539,7 @@ namespace VoteCDJ_Admin
                         while (reader.Read())
                         {
                             string name = reader.GetString(0);
-                            int candidateID = reader.GetInt32(1); 
+                            int candidateID = reader.GetInt32(1);
                             piXLabels.Add(name, candidateID);
                         }
 
@@ -553,6 +553,86 @@ namespace VoteCDJ_Admin
                         //saving the chart
                         chartSave.SetLength(0);
                         piChart.Serializer.Save(chartSave);
+                        #endregion
+                    }
+                    else
+                    {
+                        //LINES
+                        #region lines
+                        //set chart max and min values
+
+                        lineChart.ChartAreas[0].AxisX.Minimum = voteStart.ToOADate();
+                        lineChart.ChartAreas[0].AxisX.Maximum = voteStart.AddHours((double)voteTimeButton.Value).ToOADate();
+
+                        //Find the id of the post selected
+                        query = "SELECT id FROM post WHERE name =\"" + comboBoxPost.SelectedItem.ToString() + "\"";
+
+                        cmd = new MySqlCommand(query, this.SQLConn);
+                        reader = cmd.ExecuteReader();
+
+                        int id = 0;
+                        while (reader.Read())
+                        {
+                            id = reader.GetInt32(0);
+                        }
+
+                        reader.Close();
+
+                        //Find the names now
+                        query = "SELECT name, id FROM candidates WHERE postID =" + id.ToString();
+
+                        cmd = new MySqlCommand(query, this.SQLConn);
+                        reader = cmd.ExecuteReader();
+
+                        lineChart.Series.Clear();
+
+                        Dictionary<string, int> lineXLabels = new Dictionary<string, int>();
+                        while (reader.Read())
+                        {
+                            string name = reader.GetString(0);
+                            int candidateID = reader.GetInt32(1);
+                            Series series = lineChart.Series.Add(name);
+                            series.YValueType = ChartValueType.Int32;
+                            series.XValueType = ChartValueType.Time;
+                            series.ChartType = SeriesChartType.Line;
+                            series.BorderWidth = 3;  
+ 
+                            lineXLabels.Add(name, candidateID);
+                        }
+
+                        reader.Close();
+
+                        for (int k = this.lineChart.Series.Count - 1; k >= 0; k--)
+                        {
+                            lineChart.Series[k].Points.Clear();
+                            lineChart.Series[k].Points.AddXY(voteStart.ToOADate(), 0);
+
+                            //query the votes and add points
+                            query = "SELECT voteTime FROM voteHistory WHERE candidateID =" + lineXLabels[lineChart.Series[k].Name].ToString();
+
+                            cmd = new MySqlCommand(query, this.SQLConn);
+                            reader = cmd.ExecuteReader();
+
+                            int voteNum = 0;
+                            while (reader.Read())
+                            {
+                                voteNum = voteNum + 1;
+                                DateTime time = reader.GetDateTime(0);
+                                lineChart.Series[k].Points.AddXY(time, voteNum);
+                                Console.WriteLine(time);
+                                Console.WriteLine(voteNum);
+                                
+                            }
+
+                            reader.Close();
+
+                            double now = DateTime.Now.ToOADate();
+                            lineChart.Series[k].Points.AddXY(now, getTotalVotes(lineXLabels[lineChart.Series[k].Name]));
+                        }
+
+                        //saving the chart
+                        chartSave.SetLength(0);
+                        lineChart.Serializer.Save(chartSave);
                         #endregion
                     }
 
@@ -723,7 +803,7 @@ namespace VoteCDJ_Admin
         {
             if (SQLConn.State == ConnectionState.Open)
             {
-                if (getTotalVotes(-1) == 0 && !voteStarted)
+                if (!voteStarted)
                 {
                     userAddWindow userAddWindow = new userAddWindow();
                     userAddWindow.ShowDialog();
@@ -743,7 +823,7 @@ namespace VoteCDJ_Admin
         {
             if (SQLConn.State == ConnectionState.Open)
             {
-                if (!voteStarted)
+                if (getTotalVotes(-1) == 0 && !voteStarted)
                 {
                     DialogResult dialogResult = MessageBox.Show("Êtes-vous sûr que vous voulez supprimer les mots de passe?", " ", MessageBoxButtons.YesNo);
                      if (dialogResult == DialogResult.Yes)
