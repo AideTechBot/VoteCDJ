@@ -12,6 +12,7 @@ using MySql.Data.MySqlClient;
 using System.IO;
 using Excel = Microsoft.Office.Interop.Excel;
 using System.Security.Cryptography;
+using System.Windows.Forms.DataVisualization.Charting;
 using System.Net;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
@@ -27,6 +28,8 @@ namespace VoteCDJ_Admin
         public int voteCount = 0;
         public MemoryStream chartSave = new MemoryStream();
         public DateTime voteStart;
+        public string HOST_IP = "";
+        public int HOST_PORT = 0;
 
         public MainWindow()
         {
@@ -130,9 +133,13 @@ namespace VoteCDJ_Admin
             statusText.Text = "Actuellement connecté à: " + ip + ":" + port;
             connectionOptions.Visible = true;
 
+            HOST_IP = ip;
+            HOST_PORT = Convert.ToInt32(port);
+
             nouvelleConnexionToolStripMenuItem.Enabled = false;
             importPassToolStripMenuItem.Enabled = true;
             exportResultsToolStripMenuItem.Enabled = true;
+            modifierLToolStripMenuItem.Enabled = true;
 
 
             if (SQLConn.State == ConnectionState.Open)
@@ -285,6 +292,7 @@ namespace VoteCDJ_Admin
                 nouvelleConnexionToolStripMenuItem.Enabled = true;
                 importPassToolStripMenuItem.Enabled = false;
                 exportResultsToolStripMenuItem.Enabled = false;
+                modifierLToolStripMenuItem.Enabled = false;
 
                 histoChart.Series[0].Points.Clear();
                 comboBoxPost.Items.Clear();
@@ -760,6 +768,19 @@ namespace VoteCDJ_Admin
         private void helpToolStripMenuItem_Click(object sender, EventArgs e)
         {
             System.Diagnostics.Process.Start("http://aidetechbot.github.io/VoteCDJ/");
+        }
+
+        private void modifierLToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (SQLConn.State == ConnectionState.Open)
+            {
+                appearanceWindow appearanceWindow = new appearanceWindow();
+                appearanceWindow.ShowDialog();
+            }
+            else
+            {
+                MessageBox.Show("Auncune connexion de base de données.");
+            }
         }
 
     }
