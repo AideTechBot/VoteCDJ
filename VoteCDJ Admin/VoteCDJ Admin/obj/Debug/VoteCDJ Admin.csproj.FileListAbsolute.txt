@@ -34,3 +34,5 @@ D:\Manuel\Github\VoteCDJ\VoteCDJ Admin\VoteCDJ Admin\bin\Debug\VoteCDJ Admin.app
 D:\Manuel\Github\VoteCDJ\VoteCDJ Admin\VoteCDJ Admin\obj\Debug\VoteCDJ Admin.TrustInfo.xml
 D:\Manuel\Github\VoteCDJ\VoteCDJ Admin\VoteCDJ Admin\obj\Debug\VoteCDJ Admin.exe.manifest
 D:\Manuel\Github\VoteCDJ\VoteCDJ Admin\VoteCDJ Admin\obj\Debug\VoteCDJ Admin.application
+D:\Manuel\Github\VoteCDJ\VoteCDJ Admin\VoteCDJ Admin\obj\Debug\VoteCDJ_Admin.appearanceWindow.resources
+D:\Manuel\Github\VoteCDJ\VoteCDJ Admin\VoteCDJ Admin\bin\Debug\Renci.SshNet.dll
