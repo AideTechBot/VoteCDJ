@@ -743,7 +743,7 @@ namespace VoteCDJ_Admin
         {
             if (SQLConn.State == ConnectionState.Open)
             {
-                if (getTotalVotes(-1) == 0 && !voteStarted)
+                if (!voteStarted)
                 {
                     DialogResult dialogResult = MessageBox.Show("Êtes-vous sûr que vous voulez supprimer les mots de passe?", " ", MessageBoxButtons.YesNo);
                      if (dialogResult == DialogResult.Yes)
