@@ -67,7 +67,7 @@ namespace VoteCDJ_Admin
             }
             else
             {
-                query = "SELECT * FROM voteHistory";
+                query = "SELECT * FROM members WHERE hasVoted=1";
             }
 
             MySqlCommand cmd = new MySqlCommand(query, this.SQLConn);
