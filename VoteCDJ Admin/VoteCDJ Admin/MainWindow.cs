@@ -160,6 +160,7 @@ namespace VoteCDJ_Admin
             importPassToolStripMenuItem.Enabled = true;
             exportResultsToolStripMenuItem.Enabled = true;
             modifierLToolStripMenuItem.Enabled = true;
+            effacerTousLesVotesToolStripMenuItem.Enabled = true;
 
 
             if (SQLConn.State == ConnectionState.Open)
@@ -223,7 +224,7 @@ namespace VoteCDJ_Admin
 
                                 voteTimeLeftLabel.Text = Math.Floor(voteTimeButton.Value).ToString() + ":" + Math.Round((voteTimeButton.Value - Math.Floor(voteTimeButton.Value)) * 60).ToString().PadLeft(2, '0');
 
-                                //clear the has voted
+                                //update vars
                                 string query = "UPDATE vars SET voteStarted = 1";
                                 MySqlCommand cmd = new MySqlCommand(query, this.SQLConn);
                                 cmd.ExecuteNonQuery();
@@ -313,6 +314,7 @@ namespace VoteCDJ_Admin
                 importPassToolStripMenuItem.Enabled = false;
                 exportResultsToolStripMenuItem.Enabled = false;
                 modifierLToolStripMenuItem.Enabled = false;
+                effacerTousLesVotesToolStripMenuItem.Enabled = true;
 
                 histoChart.Series[0].Points.Clear();
                 comboBoxPost.Items.Clear();
@@ -864,6 +866,46 @@ namespace VoteCDJ_Admin
             else
             {
                 MessageBox.Show("Auncune connexion de base de données.");
+            }
+        }
+
+        private void effacerTousLesVotesToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            DialogResult dialogResult = MessageBox.Show("Êtes-vous sûr que vous voulez effacer tous les résultats du vote?", " ", MessageBoxButtons.YesNo);
+            if (dialogResult == DialogResult.Yes)
+            {
+                if (!voteStarted)
+                {
+                    try
+                    {
+                        if (SQLConn.State == ConnectionState.Open)
+                        {
+                            //delete the votes
+                            string query = "DELETE FROM voteHistory";
+                            MySqlCommand cmd = new MySqlCommand(query, this.SQLConn);
+                            cmd.ExecuteNonQuery();
+
+                            //give the people their right to vote
+                            //by the people, for the people
+                            //equality and justice for all
+                            query = "UPDATE members SET hasvoted = 0";
+                            cmd = new MySqlCommand(query, this.SQLConn);
+                            cmd.ExecuteNonQuery();
+                        }
+                        else
+                        {
+                            MessageBox.Show("Auncune connexion de base de données.");
+                        }
+                    }
+                    catch (NullReferenceException)
+                    {
+                        MessageBox.Show("Auncune connexion de base de données.");
+                    }
+                }
+                else
+                {
+                    MessageBox.Show("Le vote est en cours.");
+                }
             }
         }
 
