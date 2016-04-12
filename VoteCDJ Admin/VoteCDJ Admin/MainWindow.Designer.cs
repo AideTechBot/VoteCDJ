@@ -85,6 +85,7 @@
             this.UIUpdater = new System.Windows.Forms.Timer(this.components);
             this.saveFileDialog = new System.Windows.Forms.SaveFileDialog();
             this.openFileDialog = new System.Windows.Forms.OpenFileDialog();
+            this.effacerTousLesVotesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.tableLayoutPanel1.SuspendLayout();
             this.panel2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.candidateChart)).BeginInit();
@@ -585,7 +586,8 @@
             // 
             this.connexionsToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.nouvelleConnexionToolStripMenuItem,
-            this.importPassToolStripMenuItem});
+            this.importPassToolStripMenuItem,
+            this.effacerTousLesVotesToolStripMenuItem});
             this.connexionsToolStripMenuItem.Name = "connexionsToolStripMenuItem";
             this.connexionsToolStripMenuItem.Size = new System.Drawing.Size(107, 20);
             this.connexionsToolStripMenuItem.Text = "Base de données";
@@ -629,6 +631,14 @@
             // openFileDialog
             // 
             this.openFileDialog.FileName = "openFileDialog";
+            // 
+            // effacerTousLesVotesToolStripMenuItem
+            // 
+            this.effacerTousLesVotesToolStripMenuItem.Enabled = false;
+            this.effacerTousLesVotesToolStripMenuItem.Name = "effacerTousLesVotesToolStripMenuItem";
+            this.effacerTousLesVotesToolStripMenuItem.Size = new System.Drawing.Size(196, 22);
+            this.effacerTousLesVotesToolStripMenuItem.Text = "Effacer tous les votes";
+            this.effacerTousLesVotesToolStripMenuItem.Click += new System.EventHandler(this.effacerTousLesVotesToolStripMenuItem_Click);
             // 
             // MainWindow
             // 
@@ -722,6 +732,7 @@
         private System.Windows.Forms.ToolStripMenuItem modifierLToolStripMenuItem;
         private System.Windows.Forms.TabPage tabPage3;
         private System.Windows.Forms.DataVisualization.Charting.Chart lineChart;
+        private System.Windows.Forms.ToolStripMenuItem effacerTousLesVotesToolStripMenuItem;
 
     }
 }
