@@ -67,7 +67,7 @@ namespace VoteCDJ_Admin
             }
             else
             {
-                query = "SELECT * FROM voteHistory";
+                query = "SELECT * FROM members WHERE hasVoted=1";
             }
 
             MySqlCommand cmd = new MySqlCommand(query, this.SQLConn);
@@ -101,6 +101,26 @@ namespace VoteCDJ_Admin
             reader.Close();
 
             return candidateID;
+        }
+
+        //COUNT ALL THE USERS
+        private int getNumUsers()
+        {
+            string query;
+            query = "SELECT * FROM members";
+
+            MySqlCommand cmd = new MySqlCommand(query, this.SQLConn);
+            MySqlDataReader reader = cmd.ExecuteReader();
+
+            int totalUsers = 0;
+            while (reader.Read())
+            {
+                totalUsers = totalUsers + 1;
+            }
+
+            reader.Close();
+
+            return totalUsers;
         }
 
         private void releaseObject(object obj)
@@ -341,7 +361,7 @@ namespace VoteCDJ_Admin
                 candidateChart.ChartAreas[0].AxisX.Minimum = voteStart.ToOADate();
                 candidateChart.ChartAreas[0].AxisX.Maximum = voteStart.AddHours((double)voteTimeButton.Value).ToOADate();
 
-                candidateChart.ChartAreas[0].AxisY.Maximum = 10;
+                candidateChart.ChartAreas[0].AxisY.Maximum = getNumUsers();
 
                 int candidateID = getCandidateID(treeView.SelectedNode.Text);
                 query = "SELECT voteTime FROM voteHistory WHERE candidateID =\"" + candidateID.ToString() + "\"";
