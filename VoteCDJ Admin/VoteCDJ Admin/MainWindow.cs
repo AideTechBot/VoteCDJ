@@ -67,7 +67,7 @@ namespace VoteCDJ_Admin
             }
             else
             {
-                query = "SELECT * FROM members WHERE hasVoted=1";
+                query = "SELECT * FROM voteHistory";
             }
 
             MySqlCommand cmd = new MySqlCommand(query, this.SQLConn);
@@ -723,7 +723,7 @@ namespace VoteCDJ_Admin
                     xlWorkSheet = (Excel.Worksheet)xlWorkBook.Worksheets.get_Item(1);
                     //xlWorkSheet.Cells[1, 1] = "Sheet 1 content";
 
-                    string query = "Select name,id FROM candidates ORDER by id";
+                    string query = "SELECT name,id,IFNULL(votes,0) as 'votes' FROM (Select name,candidates.id,v.votes FROM candidates LEFT JOIN (SELECT candidateID as 'id',Count(*) as 'votes' FROM voteHistory GROUP BY candidateID) as v ON candidates.id=v.id) as result";
 
                     MySqlCommand cmd = new MySqlCommand(query, this.SQLConn);
                     MySqlDataReader reader = cmd.ExecuteReader();
@@ -733,30 +733,14 @@ namespace VoteCDJ_Admin
                     while (reader.Read())
                     {
                         string name = reader.GetString(0);
+                        int votes = reader.GetInt32(2);
                         xlWorkSheet.Cells[x, y] = name;
-                        x++;
-                    }
-
-                    reader.Close();
-
-                    query = "SELECT candidateID,Count(*) as 'votes' FROM voteHistory GROUP BY candidateID;";
-
-                    cmd = new MySqlCommand(query, this.SQLConn);
-                    reader = cmd.ExecuteReader();
-
-                    x = 1;
-                    y = 2;
-                    while (reader.Read())
-                    {
-                        int votes = reader.GetInt32(1);
-                        xlWorkSheet.Cells[x, y] = votes;
+                        xlWorkSheet.Cells[x, y + 1] = votes;
                         x++;
                     }
 
                     reader.Close();
                     
-
-
                     xlWorkBook.SaveAs(this.saveFileDialog.FileName, Excel.XlFileFormat.xlWorkbookNormal, misValue, misValue, misValue, misValue, Excel.XlSaveAsAccessMode.xlExclusive, misValue, misValue, misValue, misValue, misValue);
                     xlWorkBook.Close(true, misValue, misValue);
                     xlApp.Quit();
