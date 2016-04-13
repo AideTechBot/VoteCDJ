@@ -586,6 +586,7 @@ namespace VoteCDJ_Admin
                         lineChart.ChartAreas[0].AxisX.Minimum = voteStart.ToOADate();
                         lineChart.ChartAreas[0].AxisX.Maximum = voteStart.AddHours((double)voteTimeButton.Value).ToOADate();
 
+
                         //Find the id of the post selected
                         query = "SELECT id FROM post WHERE name =\"" + comboBoxPost.SelectedItem.ToString() + "\"";
 
@@ -639,17 +640,15 @@ namespace VoteCDJ_Admin
                             while (reader.Read())
                             {
                                 voteNum = voteNum + 1;
-                                DateTime time = reader.GetDateTime(0);
+                                double time = reader.GetDateTime(0).ToOADate();
                                 lineChart.Series[k].Points.AddXY(time, voteNum);
-                                Console.WriteLine(time);
-                                Console.WriteLine(voteNum);
                                 
                             }
 
                             reader.Close();
 
                             double now = DateTime.Now.ToOADate();
-                            lineChart.Series[k].Points.AddXY(now, getTotalVotes(lineXLabels[lineChart.Series[k].Name]));
+                            lineChart.Series[k].Points.AddXY(now, getNumVotes(getCandidateID(lineChart.Series[k].Name)));
                         }
 
                         //saving the chart
