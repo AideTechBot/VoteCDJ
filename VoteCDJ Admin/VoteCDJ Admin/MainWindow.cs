@@ -485,7 +485,20 @@ namespace VoteCDJ_Admin
 
                     reader.Close();
 
-                    voteHourLabel.Text = voteHour.ToString() + " votes dans la dernière heure";
+                    query = "SELECT * FROM post";
+
+                    cmd = new MySqlCommand(query, this.SQLConn);
+                    reader = cmd.ExecuteReader();
+
+                    int numPosts = 0;
+                    while (reader.Read())
+                    {
+                        numPosts++;
+                    }
+
+                    reader.Close();
+
+                    voteHourLabel.Text = (voteHour/numPosts).ToString() + " votes dans la dernière heure";
 
                     //TAB INTERFACE
                     if (tabControl1.SelectedTab.Text == "Histogramme")
@@ -586,6 +599,7 @@ namespace VoteCDJ_Admin
                         lineChart.ChartAreas[0].AxisX.Minimum = voteStart.ToOADate();
                         lineChart.ChartAreas[0].AxisX.Maximum = voteStart.AddHours((double)voteTimeButton.Value).ToOADate();
 
+                        lineChart.ChartAreas[0].AxisY.Maximum = getNumUsers();
 
                         //Find the id of the post selected
                         query = "SELECT id FROM post WHERE name =\"" + comboBoxPost.SelectedItem.ToString() + "\"";
