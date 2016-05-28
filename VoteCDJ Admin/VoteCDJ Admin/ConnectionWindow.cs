@@ -11,6 +11,7 @@ using System.Net;
 using MySql.Data;
 using MySql.Data.MySqlClient;
 using System.IO;
+using System.Net.NetworkInformation;
 
 namespace VoteCDJ_Admin
 {
@@ -21,12 +22,27 @@ namespace VoteCDJ_Admin
             InitializeComponent();
         }
 
+        public static bool PingHost(string nameOrAddress)
+        {
+            bool pingable = false;
+            Ping pinger = new Ping();
+            try
+            {
+                PingReply reply = pinger.Send(nameOrAddress);
+                pingable = reply.Status == IPStatus.Success;
+            }
+            catch (PingException)
+            {
+                // Discard PingExceptions and return false;
+            }
+            return pingable;
+        }
+
         private void connectButton_Click(object sender, EventArgs e)
         {
-            IPAddress address;
-            if (IPAddress.TryParse(ipBox.Text, out address))
+            if (PingHost(ipBox.Text))
             {
-                string connetionString = "SERVER = " + ipBox.Text + "; PORT = " + portBox.Value.ToString() + "; DATABASE = Vote; User ID = sec_remote; PASSWORD = 6EUO1BE6ZRb";
+                string connetionString = "SERVER = " + ipBox.Text + "; PORT = " + portBox.Value.ToString() + "; DATABASE = marqueri_vote; User ID = marqueri_vote; PASSWORD = BB&7y?6t%5r$4ePP";
 
                 var mainWindow = Application.OpenForms.OfType<MainWindow>().Single();
                 mainWindow.SQLConn = new MySqlConnection(connetionString);
