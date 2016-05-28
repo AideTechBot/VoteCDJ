@@ -245,6 +245,17 @@ namespace VoteCDJ_Admin
                                 voteTimer.Start();
                                 voteStarted = true;
                                 voteStart = DateTime.Now;
+                                DateTime voteEnd = voteStart.AddHours((double)voteTimeButton.Value);
+
+                                query = "UPDATE vars SET voteStartTime = @st";
+                                cmd = new MySqlCommand(query, this.SQLConn);
+                                cmd.Parameters.AddWithValue("@st", voteStart);
+                                cmd.ExecuteNonQuery();
+
+                                query = "UPDATE vars SET voteEndTime = @st";
+                                cmd = new MySqlCommand(query, this.SQLConn);
+                                cmd.Parameters.AddWithValue("@st", voteEnd);
+                                cmd.ExecuteNonQuery();
                             }
                             else
                             {
@@ -357,11 +368,27 @@ namespace VoteCDJ_Admin
                     candidatePercentVotesLabel.Text = "0% des votes";
 
                 //GRAPH
-                //TODO MAKE A SETTING FOR NUM OF PEOPLE AND MAKE GRAPH DYNAMIC
+                //get max and min for the graph
+                query = "SELECT voteStartTime,voteEndTime FROM vars";
+
+                cmd = new MySqlCommand(query, this.SQLConn);
+                reader = cmd.ExecuteReader();
+
+                DateTime voteStartTime = DateTime.Now;
+                DateTime voteEndTime = DateTime.Now;
+                while (reader.Read())
+                {
+                    voteStartTime = reader.GetDateTime(0);
+                    voteEndTime = reader.GetDateTime(1);
+                }
+
+                reader.Close();
+
+
                 candidateChart.Series[0].Points.Clear();
 
-                candidateChart.ChartAreas[0].AxisX.Minimum = voteStart.ToOADate();
-                candidateChart.ChartAreas[0].AxisX.Maximum = voteStart.AddHours((double)voteTimeButton.Value).ToOADate();
+                candidateChart.ChartAreas[0].AxisX.Minimum = voteStartTime.ToOADate();
+                candidateChart.ChartAreas[0].AxisX.Maximum = voteEndTime.ToOADate();
 
                 candidateChart.ChartAreas[0].AxisY.Maximum = getNumUsers();
 
@@ -596,8 +623,23 @@ namespace VoteCDJ_Admin
                         #region lines
                         //set chart max and min values
 
-                        lineChart.ChartAreas[0].AxisX.Minimum = voteStart.ToOADate();
-                        lineChart.ChartAreas[0].AxisX.Maximum = voteStart.AddHours((double)voteTimeButton.Value).ToOADate();
+                        query = "SELECT voteStartTime,voteEndTime FROM vars";
+
+                        cmd = new MySqlCommand(query, this.SQLConn);
+                        reader = cmd.ExecuteReader();
+
+                        DateTime voteStartTime = DateTime.Now;
+                        DateTime voteEndTime = DateTime.Now;
+                        while (reader.Read())
+                        {
+                            voteStartTime = reader.GetDateTime(0);
+                            voteEndTime = reader.GetDateTime(1);
+                        }
+
+                        reader.Close();
+
+                        lineChart.ChartAreas[0].AxisX.Minimum = voteStartTime.ToOADate();
+                        lineChart.ChartAreas[0].AxisX.Maximum = voteEndTime.ToOADate();
 
                         lineChart.ChartAreas[0].AxisY.Maximum = getNumUsers();
 
