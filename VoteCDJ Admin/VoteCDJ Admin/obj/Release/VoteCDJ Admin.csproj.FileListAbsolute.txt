@@ -1,0 +1,26 @@
+D:\Manuel\Github\VoteCDJ\VoteCDJ Admin\VoteCDJ Admin\bin\Release\VoteCDJ Admin.exe.config
+D:\Manuel\Github\VoteCDJ\VoteCDJ Admin\VoteCDJ Admin\obj\Release\VoteCDJ Admin.csproj.ResolveComReference.cache
+D:\Manuel\Github\VoteCDJ\VoteCDJ Admin\VoteCDJ Admin\bin\Release\VoteCDJ Admin.exe.manifest
+D:\Manuel\Github\VoteCDJ\VoteCDJ Admin\VoteCDJ Admin\bin\Release\VoteCDJ Admin.application
+D:\Manuel\Github\VoteCDJ\VoteCDJ Admin\VoteCDJ Admin\bin\Release\VoteCDJ Admin.exe
+D:\Manuel\Github\VoteCDJ\VoteCDJ Admin\VoteCDJ Admin\bin\Release\VoteCDJ Admin.pdb
+D:\Manuel\Github\VoteCDJ\VoteCDJ Admin\VoteCDJ Admin\bin\Release\MySql.Data.dll
+D:\Manuel\Github\VoteCDJ\VoteCDJ Admin\VoteCDJ Admin\bin\Release\Newtonsoft.Json.dll
+D:\Manuel\Github\VoteCDJ\VoteCDJ Admin\VoteCDJ Admin\bin\Release\Renci.SshNet.dll
+D:\Manuel\Github\VoteCDJ\VoteCDJ Admin\VoteCDJ Admin\bin\Release\Newtonsoft.Json.xml
+D:\Manuel\Github\VoteCDJ\VoteCDJ Admin\VoteCDJ Admin\obj\Release\VoteCDJ Admin.csprojResolveAssemblyReference.cache
+D:\Manuel\Github\VoteCDJ\VoteCDJ Admin\VoteCDJ Admin\obj\Release\VoteCDJ_Admin.addCandidatesWindow.resources
+D:\Manuel\Github\VoteCDJ\VoteCDJ Admin\VoteCDJ Admin\obj\Release\VoteCDJ_Admin.appearanceWindow.resources
+D:\Manuel\Github\VoteCDJ\VoteCDJ Admin\VoteCDJ Admin\obj\Release\VoteCDJ_Admin.ConnectionWindow.resources
+D:\Manuel\Github\VoteCDJ\VoteCDJ Admin\VoteCDJ Admin\obj\Release\VoteCDJ_Admin.loginWindow.resources
+D:\Manuel\Github\VoteCDJ\VoteCDJ Admin\VoteCDJ Admin\obj\Release\VoteCDJ_Admin.MainWindow.resources
+D:\Manuel\Github\VoteCDJ\VoteCDJ Admin\VoteCDJ Admin\obj\Release\VoteCDJ_Admin.nameMenu.resources
+D:\Manuel\Github\VoteCDJ\VoteCDJ Admin\VoteCDJ Admin\obj\Release\VoteCDJ_Admin.popOutWindow.resources
+D:\Manuel\Github\VoteCDJ\VoteCDJ Admin\VoteCDJ Admin\obj\Release\VoteCDJ_Admin.Properties.Resources.resources
+D:\Manuel\Github\VoteCDJ\VoteCDJ Admin\VoteCDJ Admin\obj\Release\VoteCDJ_Admin.userAddWindow.resources
+D:\Manuel\Github\VoteCDJ\VoteCDJ Admin\VoteCDJ Admin\obj\Release\VoteCDJ Admin.csproj.GenerateResource.Cache
+D:\Manuel\Github\VoteCDJ\VoteCDJ Admin\VoteCDJ Admin\obj\Release\VoteCDJ Admin.TrustInfo.xml
+D:\Manuel\Github\VoteCDJ\VoteCDJ Admin\VoteCDJ Admin\obj\Release\VoteCDJ Admin.exe.manifest
+D:\Manuel\Github\VoteCDJ\VoteCDJ Admin\VoteCDJ Admin\obj\Release\VoteCDJ Admin.application
+D:\Manuel\Github\VoteCDJ\VoteCDJ Admin\VoteCDJ Admin\obj\Release\VoteCDJ Admin.exe
+D:\Manuel\Github\VoteCDJ\VoteCDJ Admin\VoteCDJ Admin\obj\Release\VoteCDJ Admin.pdb
