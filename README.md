@@ -50,6 +50,8 @@ In the case of a file system corruption or accidental deletion of important tabl
 > | <br>
 > 5-**vars**: table name <br>
 > |-voteStarted: INT NOT NULL <-- Boolean int (1 or 0) <br>
+> |-voteStartTime: DATETIME NOT NULL <br>
+> |-voteEndTime: DATETIME NOT NULL <br>
 > | <br>
 > 6-**voteHistory**: table name <br>
 > |-id: INT NOT NULL AUTO_INCREMENT PRIMARY KEY <br>
