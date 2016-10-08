@@ -498,7 +498,8 @@ namespace VoteCDJ_Admin
 
                     reader.Close();
 
-                    voteHourLabel.Text = (voteHour/numPosts).ToString() + " votes dans la dernière heure";
+                    if (numPosts != 0) voteHourLabel.Text = (voteHour / numPosts).ToString() + " votes dans la dernière heure";
+                    else voteHourLabel.Text = "0 votes dans la dernière heure";
 
                     //TAB INTERFACE
                     if (tabControl1.SelectedTab.Text == "Histogramme")
