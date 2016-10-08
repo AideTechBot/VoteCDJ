@@ -822,15 +822,8 @@ namespace VoteCDJ_Admin
         {
             if (SQLConn.State == ConnectionState.Open)
             {
-                if (!voteStarted)
-                {
                     userAddWindow userAddWindow = new userAddWindow();
                     userAddWindow.ShowDialog();
-                }
-                else
-                {
-                    MessageBox.Show("Vote en cours.");
-                }
             }
             else
             {

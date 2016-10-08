@@ -36,3 +36,30 @@ D:\Manuel\Github\VoteCDJ\VoteCDJ Admin\VoteCDJ Admin\obj\Debug\VoteCDJ Admin.exe
 D:\Manuel\Github\VoteCDJ\VoteCDJ Admin\VoteCDJ Admin\obj\Debug\VoteCDJ Admin.application
 D:\Manuel\Github\VoteCDJ\VoteCDJ Admin\VoteCDJ Admin\obj\Debug\VoteCDJ_Admin.appearanceWindow.resources
 D:\Manuel\Github\VoteCDJ\VoteCDJ Admin\VoteCDJ Admin\bin\Debug\Renci.SshNet.dll
+C:\Users\Manuel\Desktop\New Manuel\Projects\C#\VoteCDJ\VoteCDJ Admin\VoteCDJ Admin\bin\Debug\VoteCDJ Admin.exe.config
+C:\Users\Manuel\Desktop\New Manuel\Projects\C#\VoteCDJ\VoteCDJ Admin\VoteCDJ Admin\obj\Debug\VoteCDJ Admin.csproj.ResolveComReference.cache
+C:\Users\Manuel\Desktop\New Manuel\Projects\C#\VoteCDJ\VoteCDJ Admin\VoteCDJ Admin\obj\Debug\VoteCDJ Admin.exe
+C:\Users\Manuel\Desktop\New Manuel\Projects\C#\VoteCDJ\VoteCDJ Admin\VoteCDJ Admin\obj\Debug\VoteCDJ Admin.pdb
+C:\Users\Manuel\Desktop\New Manuel\Projects\C#\VoteCDJ\VoteCDJ Admin\VoteCDJ Admin\bin\Debug\VoteCDJ Admin.exe.manifest
+C:\Users\Manuel\Desktop\New Manuel\Projects\C#\VoteCDJ\VoteCDJ Admin\VoteCDJ Admin\bin\Debug\VoteCDJ Admin.application
+C:\Users\Manuel\Desktop\New Manuel\Projects\C#\VoteCDJ\VoteCDJ Admin\VoteCDJ Admin\bin\Debug\VoteCDJ Admin.exe
+C:\Users\Manuel\Desktop\New Manuel\Projects\C#\VoteCDJ\VoteCDJ Admin\VoteCDJ Admin\bin\Debug\VoteCDJ Admin.pdb
+C:\Users\Manuel\Desktop\New Manuel\Projects\C#\VoteCDJ\VoteCDJ Admin\VoteCDJ Admin\bin\Debug\MySql.Data.dll
+C:\Users\Manuel\Desktop\New Manuel\Projects\C#\VoteCDJ\VoteCDJ Admin\VoteCDJ Admin\bin\Debug\Newtonsoft.Json.dll
+C:\Users\Manuel\Desktop\New Manuel\Projects\C#\VoteCDJ\VoteCDJ Admin\VoteCDJ Admin\bin\Debug\Renci.SshNet.dll
+C:\Users\Manuel\Desktop\New Manuel\Projects\C#\VoteCDJ\VoteCDJ Admin\VoteCDJ Admin\bin\Debug\Newtonsoft.Json.xml
+C:\Users\Manuel\Desktop\New Manuel\Projects\C#\VoteCDJ\VoteCDJ Admin\VoteCDJ Admin\obj\Debug\VoteCDJ Admin.csprojResolveAssemblyReference.cache
+C:\Users\Manuel\Desktop\New Manuel\Projects\C#\VoteCDJ\VoteCDJ Admin\VoteCDJ Admin\obj\Debug\VoteCDJ_Admin.addCandidatesWindow.resources
+C:\Users\Manuel\Desktop\New Manuel\Projects\C#\VoteCDJ\VoteCDJ Admin\VoteCDJ Admin\obj\Debug\VoteCDJ_Admin.appearanceWindow.resources
+C:\Users\Manuel\Desktop\New Manuel\Projects\C#\VoteCDJ\VoteCDJ Admin\VoteCDJ Admin\obj\Debug\VoteCDJ_Admin.ConnectionWindow.resources
+C:\Users\Manuel\Desktop\New Manuel\Projects\C#\VoteCDJ\VoteCDJ Admin\VoteCDJ Admin\obj\Debug\VoteCDJ_Admin.loginWindow.resources
+C:\Users\Manuel\Desktop\New Manuel\Projects\C#\VoteCDJ\VoteCDJ Admin\VoteCDJ Admin\obj\Debug\VoteCDJ_Admin.MainWindow.resources
+C:\Users\Manuel\Desktop\New Manuel\Projects\C#\VoteCDJ\VoteCDJ Admin\VoteCDJ Admin\obj\Debug\VoteCDJ_Admin.nameMenu.resources
+C:\Users\Manuel\Desktop\New Manuel\Projects\C#\VoteCDJ\VoteCDJ Admin\VoteCDJ Admin\obj\Debug\VoteCDJ_Admin.popOutWindow.resources
+C:\Users\Manuel\Desktop\New Manuel\Projects\C#\VoteCDJ\VoteCDJ Admin\VoteCDJ Admin\obj\Debug\VoteCDJ_Admin.Properties.Resources.resources
+C:\Users\Manuel\Desktop\New Manuel\Projects\C#\VoteCDJ\VoteCDJ Admin\VoteCDJ Admin\obj\Debug\VoteCDJ_Admin.userAddWindow.resources
+C:\Users\Manuel\Desktop\New Manuel\Projects\C#\VoteCDJ\VoteCDJ Admin\VoteCDJ Admin\obj\Debug\VoteCDJ Admin.csproj.GenerateResource.Cache
+C:\Users\Manuel\Desktop\New Manuel\Projects\C#\VoteCDJ\VoteCDJ Admin\VoteCDJ Admin\obj\Debug\VoteCDJ Admin.TrustInfo.xml
+C:\Users\Manuel\Desktop\New Manuel\Projects\C#\VoteCDJ\VoteCDJ Admin\VoteCDJ Admin\obj\Debug\VoteCDJ Admin.exe.manifest
+C:\Users\Manuel\Desktop\New Manuel\Projects\C#\VoteCDJ\VoteCDJ Admin\VoteCDJ Admin\obj\Debug\VoteCDJ Admin.application
+C:\Users\Manuel\Desktop\New Manuel\Projects\C#\VoteCDJ\VoteCDJ Admin\VoteCDJ Admin\obj\Debug\VoteCDJ_Admin.changePasswd.resources

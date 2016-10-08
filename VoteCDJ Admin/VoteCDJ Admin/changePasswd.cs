@@ -21,15 +21,14 @@ namespace VoteCDJ_Admin
 
         private void button_Click(object sender, EventArgs e)
         {
-            if(textBox.Text == "")
-            {
-                var userAdd = Application.OpenForms.OfType<userAddWindow>().Single();
-                userAdd.change_Passwd(textBox.Text, username);
+                var window = Application.OpenForms.OfType<userAddWindow>().Single();
+                window.change_Passwd(textBox.Text, username);
                 this.Close();
-            }
-            {
-                MessageBox.Show("Mot de passe invalide.");
-            }
+        }
+
+        private void textBox_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Enter) button_Click(this, new EventArgs());
         }
     }
 }
