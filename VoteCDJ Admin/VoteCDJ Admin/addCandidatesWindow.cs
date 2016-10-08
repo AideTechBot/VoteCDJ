@@ -153,6 +153,16 @@ namespace VoteCDJ_Admin
                 mainWindow.updateTree();
   
             }
+            else if (postComboBox.SelectedItem == null && empty)
+            {
+                string query = "INSERT INTO post (id, name, grade) VALUES ((SELECT MAX(id) + 1 FROM (SELECT * FROM post) AS something) ,\'" + MySqlHelper.EscapeString(name) + "\', \'" + MySqlHelper.EscapeString(grade.ToString()) + "\')";
+                MySqlCommand cmd = new MySqlCommand(query, mainWindow.SQLConn);
+                cmd.ExecuteNonQuery();
+
+                this.updateCandList(name);
+                this.updatePostList();
+                mainWindow.updateTree();
+            }
             else
             {
                 string query = "INSERT INTO candidates (id, postID, name, grade) VALUES ((SELECT MAX(id) + 1 FROM (SELECT * FROM candidates) AS something),(Select id FROM post WHERE name =\"" + postComboBox.Text + "\"), \'" + MySqlHelper.EscapeString(name) + "\', \'" + MySqlHelper.EscapeString(grade.ToString()) + "\')";
