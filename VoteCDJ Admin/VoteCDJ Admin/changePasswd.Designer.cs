@@ -38,6 +38,7 @@
             this.textBox.Name = "textBox";
             this.textBox.Size = new System.Drawing.Size(259, 20);
             this.textBox.TabIndex = 0;
+            this.textBox.KeyDown += new System.Windows.Forms.KeyEventHandler(this.textBox_KeyDown);
             // 
             // button
             // 
@@ -53,12 +54,17 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(283, 70);
+            this.ClientSize = new System.Drawing.Size(284, 66);
             this.Controls.Add(this.button);
             this.Controls.Add(this.textBox);
+            this.MaximizeBox = false;
+            this.MaximumSize = new System.Drawing.Size(300, 105);
+            this.MinimizeBox = false;
+            this.MinimumSize = new System.Drawing.Size(300, 105);
             this.Name = "changePasswd";
             this.ShowIcon = false;
             this.ShowInTaskbar = false;
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "Changement de mot de passe";
             this.ResumeLayout(false);
             this.PerformLayout();
