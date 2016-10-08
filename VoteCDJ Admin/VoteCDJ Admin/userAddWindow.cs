@@ -35,7 +35,7 @@ namespace VoteCDJ_Admin
             listBox.Items.Clear();
             var mainWindow = Application.OpenForms.OfType<MainWindow>().Single();
 
-            string query = "SELECT username FROM members";
+            string query = "SELECT username,hasvoted FROM members";
 
             MySqlCommand cmd = new MySqlCommand(query, mainWindow.SQLConn);
             MySqlDataReader reader = cmd.ExecuteReader();
@@ -43,10 +43,30 @@ namespace VoteCDJ_Admin
             while (reader.Read())
             {
                 string user = reader.GetString(0);
-                listBox.Items.Add(user);
+                int hasvoted = reader.GetInt16(1);
+                int spaces = 16 - user.Length;
+                string whitespace = "";
+                for (int i = 0; i < spaces; i++)
+                    whitespace += " ";
+                listBox.Items.Add(user + whitespace + hasvoted.ToString());
             }
 
             reader.Close();
+            
+            if(mainWindow.voteStarted)
+            {
+                importButton.Enabled = false;
+                addButton.Enabled = false;
+                deleteButton.Enabled = false;
+                button2.Enabled = false;
+            }
+            else
+            {
+                importButton.Enabled = true;
+                addButton.Enabled = true;
+                deleteButton.Enabled = true;
+                button2.Enabled = true;
+            }
         }
 
         private void releaseObject(object obj)
@@ -124,6 +144,62 @@ namespace VoteCDJ_Admin
             else
             {
                 MessageBox.Show("Utilisateur est déjà dans la liste");
+                mainWindow.UIUpdater.Start();
+            }
+        }
+
+        public void change_Passwd(string password, string username)
+        {
+            Console.WriteLine(username);
+            var mainWindow = Application.OpenForms.OfType<MainWindow>().Single();
+            mainWindow.UIUpdater.Stop();
+
+            //check if the user is already in the database
+            string query = "SELECT * FROM members WHERE username = \"" + username + "\"";
+
+            MySqlCommand cmd = new MySqlCommand(query, mainWindow.SQLConn);
+            MySqlDataReader reader = cmd.ExecuteReader();
+
+            int already = 0;
+            while (reader.Read())
+            {
+                //MessageBox.Show("User already in database skipping...");
+                already = 1;
+            }
+            reader.Close();
+            if (already == 1)
+            {
+                //add the user to the database by hashing his passwords
+                var request = (HttpWebRequest)WebRequest.Create("http://" + mainWindow.HOST_IP + "/salt.php");
+
+                var postData = "pass=" + password;
+                var data = Encoding.ASCII.GetBytes(postData);
+
+                request.Method = "POST";
+                request.ContentType = "application/x-www-form-urlencoded";
+                request.ContentLength = data.Length;
+
+                using (var stream = request.GetRequestStream())
+                {
+                    stream.Write(data, 0, data.Length);
+                }
+
+                var response = (HttpWebResponse)request.GetResponse();
+
+                var responseString = new StreamReader(response.GetResponseStream()).ReadToEnd();
+
+                JObject o = JObject.Parse(responseString);
+
+                query = "UPDATE members SET password=\"" + o["password"] + "\", salt=\"" + o["salt"] + "\" WHERE username=\"" + username + "\"";
+                cmd = new MySqlCommand(query, mainWindow.SQLConn);
+                cmd.ExecuteNonQuery();
+
+                updateUI();
+                mainWindow.UIUpdater.Start();
+            }
+            else
+            {
+                MessageBox.Show("Utilisateur n'est pas dans la base de donnés.");
                 mainWindow.UIUpdater.Start();
             }
         }
@@ -302,5 +378,41 @@ namespace VoteCDJ_Admin
             }
         }
 
+        private void changePass_Click(object sender, EventArgs e)
+        {
+            if(listBox.SelectedIndex != -1)
+            {
+                changePasswd window = new changePasswd();
+                char[] whitespace = new char[] { ' ', '\t' };
+                window.username = listBox.SelectedItem.ToString().Split(whitespace)[0];
+                window.ShowDialog();      
+            }
+            else
+            {
+                MessageBox.Show("Aucun utilisateur séléctionné.");
+            }       
+        }
+
+        private void search_Button_Click(object sender, EventArgs e)
+        {
+            if(search_Bar.Text != "")
+            {
+                int index = listBox.FindString(search_Bar.Text, -1);
+                if (index != -1)
+                {
+                    listBox.SetSelected(index, true);
+                }
+                else MessageBox.Show("Aucun résultat.");
+            }
+            else
+            {
+                MessageBox.Show("Requête invalide.");
+            }
+        }
+
+        private void search_Bar_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Enter) search_Button_Click(this, new EventArgs());
+        }
     }
 }
