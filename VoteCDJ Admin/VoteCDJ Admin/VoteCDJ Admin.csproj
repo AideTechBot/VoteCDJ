@@ -110,6 +110,12 @@
     <Compile Include="appearanceWindow.Designer.cs">
       <DependentUpon>appearanceWindow.cs</DependentUpon>
     </Compile>
+    <Compile Include="changePasswd.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="changePasswd.Designer.cs">
+      <DependentUpon>changePasswd.cs</DependentUpon>
+    </Compile>
     <Compile Include="ConnectionWindow.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -153,6 +159,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="appearanceWindow.resx">
       <DependentUpon>appearanceWindow.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="changePasswd.resx">
+      <DependentUpon>changePasswd.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="ConnectionWindow.resx">
       <DependentUpon>ConnectionWindow.cs</DependentUpon>
