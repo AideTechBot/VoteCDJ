@@ -22,7 +22,8 @@ if (login_check($mysqli) == true) {
         <script type="text/JavaScript">
         function nextBox() {
             if (event.keyCode == 13) {
-                document.login_form.password.focus();
+                //document.login_form.password.focus();
+                //formhash(this.form, this.form.password);
             }
         }
 
@@ -58,7 +59,7 @@ if (login_check($mysqli) == true) {
             ?> 
             <form action="includewww/process_login.php" method="post" name="login_form"> 
                 <input placeholder="Nom d'utilisateur" type="text" name="username" onkeyup="nextBox()" /><br>
-                <input placeholder="Mot de passe" type="password" name="password" id="password" onkeyup="if (event.keyCode == 13) { formhash(this.form, this.form.password); return false; }"/><br>
+                <input placeholder="Mot de passe" type="hidden" value="1" name="password" id="password" onkeyup="if (event.keyCode == 13) { formhash(this.form, this.form.password); return false; }"/><br>
                 <input type="button" value="Acc&eacute;der" onclick="formhash(this.form, this.form.password);" /> 
             </form> 
         </div>   
