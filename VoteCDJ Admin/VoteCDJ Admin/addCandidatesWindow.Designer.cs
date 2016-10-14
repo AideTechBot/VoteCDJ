@@ -37,6 +37,7 @@
             this.changeButton = new System.Windows.Forms.Button();
             this.okButton = new System.Windows.Forms.Button();
             this.gradeLabel = new System.Windows.Forms.Label();
+            this.clearAll_button = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // candidateListBox
@@ -98,7 +99,7 @@
             // 
             // changeButton
             // 
-            this.changeButton.Location = new System.Drawing.Point(395, 149);
+            this.changeButton.Location = new System.Drawing.Point(395, 180);
             this.changeButton.Name = "changeButton";
             this.changeButton.Size = new System.Drawing.Size(122, 23);
             this.changeButton.TabIndex = 6;
@@ -118,17 +119,28 @@
             // gradeLabel
             // 
             this.gradeLabel.AutoSize = true;
-            this.gradeLabel.Location = new System.Drawing.Point(395, 133);
+            this.gradeLabel.Location = new System.Drawing.Point(395, 164);
             this.gradeLabel.Name = "gradeLabel";
             this.gradeLabel.Size = new System.Drawing.Size(45, 13);
             this.gradeLabel.TabIndex = 8;
             this.gradeLabel.Text = "Grade: -";
+            // 
+            // clearAll_button
+            // 
+            this.clearAll_button.Location = new System.Drawing.Point(395, 133);
+            this.clearAll_button.Name = "clearAll_button";
+            this.clearAll_button.Size = new System.Drawing.Size(122, 23);
+            this.clearAll_button.TabIndex = 9;
+            this.clearAll_button.Text = "Effacer tout";
+            this.clearAll_button.UseVisualStyleBackColor = true;
+            this.clearAll_button.Click += new System.EventHandler(this.clearAll_button_Click);
             // 
             // addCandidatesWindow
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(521, 285);
+            this.Controls.Add(this.clearAll_button);
             this.Controls.Add(this.gradeLabel);
             this.Controls.Add(this.okButton);
             this.Controls.Add(this.changeButton);
@@ -164,5 +176,6 @@
         private System.Windows.Forms.Button changeButton;
         private System.Windows.Forms.Button okButton;
         private System.Windows.Forms.Label gradeLabel;
+        private System.Windows.Forms.Button clearAll_button;
     }
 }

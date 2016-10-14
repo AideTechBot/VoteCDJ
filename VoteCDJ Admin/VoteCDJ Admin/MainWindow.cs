@@ -30,6 +30,11 @@ namespace VoteCDJ_Admin
         public DateTime voteStart;
         public string HOST_IP = "";
         public int HOST_PORT = 0;
+        private BackgroundWorker backgroundWorker;
+        delegate void SetTextCallback(Control control, string text);
+        delegate string GetTextCallback(Control control);
+        delegate TabPage GetSelectedTabCallback(TabControl control);
+        delegate string GetTitleCallback(TabPage control);
 
         public MainWindow()
         {
@@ -141,11 +146,299 @@ namespace VoteCDJ_Admin
             }
         }
 
+        //setText
+        private void setText(Control control, string text)
+        {
+            // InvokeRequired required compares the thread ID of the
+            // calling thread to the thread ID of the creating thread.
+            // If these threads are different, it returns true.
+            if (control.InvokeRequired)
+            {
+                SetTextCallback d = new SetTextCallback(setText);
+                this.Invoke(d, new object[] { control, text });
+            }
+            else
+            {
+                control.Text = text;
+            }
+        }
+
+        //getText
+        private string getText(Control control)
+        {
+            // InvokeRequired required compares the thread ID of the
+            // calling thread to the thread ID of the creating thread.
+            // If these threads are different, it returns true.
+            if (control.InvokeRequired)
+            {
+                GetTextCallback d = new GetTextCallback(getText);
+                return (string)this.Invoke(d, new object[] { control });
+            }
+            else
+            {
+                return control.Text;
+            }
+        }
+
+        //getSelectedTab
+        private TabPage getSelectedTab(TabControl control)
+        {
+            // InvokeRequired required compares the thread ID of the
+            // calling thread to the thread ID of the creating thread.
+            // If these threads are different, it returns true.
+            if (control.InvokeRequired)
+            {
+                GetSelectedTabCallback d = new GetSelectedTabCallback(getSelectedTab);
+                return (TabPage)this.Invoke(d, new object[] { control });
+            }
+            else
+            {
+                return control.SelectedTab;
+            }
+        }
+
+        //getText
+        private string getTitle(TabPage control)
+        {
+            // InvokeRequired required compares the thread ID of the
+            // calling thread to the thread ID of the creating thread.
+            // If these threads are different, it returns true.
+            if (control.InvokeRequired)
+            {
+                GetTitleCallback d = new GetTitleCallback(getTitle);
+                return (string)this.Invoke(d, new object[] { control });
+            }
+            else
+            {
+                return control.Text;
+            }
+        }
+
         #endregion;
 
         private void MainWindow_Load(object sender, EventArgs e)
         {
+            this.backgroundWorker = new BackgroundWorker();
+            this.backgroundWorker.DoWork += backgroundWorker_DoWork;
             UIUpdater.Start();
+        }
+
+        private void backgroundWorker_DoWork(object sender, DoWorkEventArgs e)
+        {
+            try
+            {
+                if (SQLConn.State == ConnectionState.Open)
+                {
+                    //GREEN TEXT UPDATER
+                    int totalVotes = getTotalVotes(-1);
+                    setText(totalVotesLabel, totalVotes.ToString() + " votes au total");
+
+                    string query = "SELECT * FROM voteHistory WHERE voteTime >= DATE_SUB(NOW(),INTERVAL 1 HOUR)";
+
+                    MySqlCommand cmd = new MySqlCommand(query, this.SQLConn);
+                    MySqlDataReader reader = cmd.ExecuteReader();
+
+                    int voteHour = 0;
+                    while (reader.Read())
+                    {
+                        voteHour++;
+                    }
+
+                    reader.Close();
+
+                    query = "SELECT * FROM post";
+
+                    cmd = new MySqlCommand(query, this.SQLConn);
+                    reader = cmd.ExecuteReader();
+
+                    int numPosts = 0;
+                    while (reader.Read())
+                    {
+                        numPosts++;
+                    }
+
+                    reader.Close();
+
+                    if (numPosts != 0) setText(voteHourLabel, (voteHour / numPosts).ToString() + " votes dans la dernière heure");
+                    else setText(voteHourLabel, "0 votes dans la dernière heure");
+
+                    //TAB INTERFACE
+                    if (getTitle(getSelectedTab(tabControl1)) == "Histogramme")
+                    {
+                        //HISTOGRAM
+                        #region histogram
+                        //Find the id of the post selected
+                        query = "SELECT id FROM post WHERE name =\"" + comboBoxPost.SelectedItem.ToString() + "\"";
+
+                        cmd = new MySqlCommand(query, this.SQLConn);
+                        reader = cmd.ExecuteReader();
+
+                        int id = 0;
+                        while (reader.Read())
+                        {
+                            id = reader.GetInt32(0);
+                        }
+
+                        reader.Close();
+
+                        //Find the names and candidateID for each candidate with this postID
+                        query = "SELECT name, id FROM candidates WHERE postID =" + id.ToString();
+
+                        cmd = new MySqlCommand(query, this.SQLConn);
+                        reader = cmd.ExecuteReader();
+
+                        Dictionary<string, int> histoXLabels = new Dictionary<string, int>();
+
+                        while (reader.Read())
+                        {
+                            string name = reader.GetString(0);
+                            int candidateID = reader.GetInt32(1);
+                            histoXLabels.Add(name, candidateID);
+                        }
+
+                        reader.Close();
+
+                        histoChart.Series[0].Points.Clear();
+
+                        foreach (KeyValuePair<string, int> item in histoXLabels)
+                            histoChart.Series[0].Points.AddXY(item.Key, getNumVotes(item.Value));
+
+                        //saving the chart
+                        chartSave.SetLength(0);
+                        histoChart.Serializer.Save(chartSave);
+                        #endregion
+                    }
+                    else if (tabControl1.SelectedTab.Text == "Camembert")
+                    {
+                        //PI
+                        #region pi
+                        //Find the id of the post selected
+                        query = "SELECT id FROM post WHERE name =\"" + comboBoxPost.SelectedItem.ToString() + "\"";
+
+                        cmd = new MySqlCommand(query, this.SQLConn);
+                        reader = cmd.ExecuteReader();
+
+                        int id = 0;
+                        while (reader.Read())
+                        {
+                            id = reader.GetInt32(0);
+                        }
+
+                        reader.Close();
+
+                        //Find the names now
+                        query = "SELECT name, id FROM candidates WHERE postID =" + id.ToString();
+
+                        cmd = new MySqlCommand(query, this.SQLConn);
+                        reader = cmd.ExecuteReader();
+
+                        Dictionary<string, int> piXLabels = new Dictionary<string, int>();
+                        while (reader.Read())
+                        {
+                            string name = reader.GetString(0);
+                            int candidateID = reader.GetInt32(1);
+                            piXLabels.Add(name, candidateID);
+                        }
+
+                        reader.Close();
+
+                        piChart.Series[0].Points.Clear();
+
+                        foreach (KeyValuePair<string, int> item in piXLabels)
+                            piChart.Series[0].Points.AddXY(item.Key, getNumVotes(item.Value));
+
+                        //saving the chart
+                        chartSave.SetLength(0);
+                        piChart.Serializer.Save(chartSave);
+                        #endregion
+                    }
+                    else
+                    {
+                        //LINES
+                        #region lines
+                        //set chart max and min values
+
+                        lineChart.ChartAreas[0].AxisX.Minimum = voteStart.ToOADate();
+                        lineChart.ChartAreas[0].AxisX.Maximum = voteStart.AddHours((double)voteTimeButton.Value).ToOADate();
+
+                        lineChart.ChartAreas[0].AxisY.Maximum = getNumUsers();
+
+                        //Find the id of the post selected
+                        query = "SELECT id FROM post WHERE name =\"" + comboBoxPost.SelectedItem.ToString() + "\"";
+
+                        cmd = new MySqlCommand(query, this.SQLConn);
+                        reader = cmd.ExecuteReader();
+
+                        int id = 0;
+                        while (reader.Read())
+                        {
+                            id = reader.GetInt32(0);
+                        }
+
+                        reader.Close();
+
+                        //Find the names now
+                        query = "SELECT name, id FROM candidates WHERE postID =" + id.ToString();
+
+                        cmd = new MySqlCommand(query, this.SQLConn);
+                        reader = cmd.ExecuteReader();
+
+                        lineChart.Series.Clear();
+
+                        Dictionary<string, int> lineXLabels = new Dictionary<string, int>();
+                        while (reader.Read())
+                        {
+                            string name = reader.GetString(0);
+                            int candidateID = reader.GetInt32(1);
+                            Series series = lineChart.Series.Add(name);
+                            series.YValueType = ChartValueType.Int32;
+                            series.XValueType = ChartValueType.Time;
+                            series.ChartType = SeriesChartType.Line;
+                            series.BorderWidth = 3;
+
+                            lineXLabels.Add(name, candidateID);
+                        }
+
+                        reader.Close();
+
+                        for (int k = this.lineChart.Series.Count - 1; k >= 0; k--)
+                        {
+                            lineChart.Series[k].Points.Clear();
+                            lineChart.Series[k].Points.AddXY(voteStart.ToOADate(), 0);
+
+                            //query the votes and add points
+                            query = "SELECT voteTime FROM voteHistory WHERE candidateID =" + lineXLabels[lineChart.Series[k].Name].ToString();
+
+                            cmd = new MySqlCommand(query, this.SQLConn);
+                            reader = cmd.ExecuteReader();
+
+                            int voteNum = 0;
+                            while (reader.Read())
+                            {
+                                voteNum = voteNum + 1;
+                                double time = reader.GetDateTime(0).ToOADate();
+                                lineChart.Series[k].Points.AddXY(time, voteNum);
+
+                            }
+
+                            reader.Close();
+
+                            double now = DateTime.Now.ToOADate();
+                            lineChart.Series[k].Points.AddXY(now, getNumVotes(getCandidateID(lineChart.Series[k].Name)));
+                        }
+
+                        //saving the chart
+                        chartSave.SetLength(0);
+                        lineChart.Serializer.Save(chartSave);
+                        #endregion
+                    }
+
+
+                }
+            }
+            catch (NullReferenceException)
+            {
+            }
         }
 
         public void confirmConnection(string ip, string port)
@@ -464,220 +757,7 @@ namespace VoteCDJ_Admin
 
         private void UIUpdater_Tick(object sender, EventArgs e)
         {
-            try
-            {
-                if (SQLConn.State == ConnectionState.Open)
-                {
-                    //GREEN TEXT UPDATER
-                    int totalVotes = getTotalVotes(-1);
-                    totalVotesLabel.Text = totalVotes.ToString() + " votes au total";
-
-                    string query = "SELECT * FROM voteHistory WHERE voteTime >= DATE_SUB(NOW(),INTERVAL 1 HOUR)";
-
-                    MySqlCommand cmd = new MySqlCommand(query, this.SQLConn);
-                    MySqlDataReader reader = cmd.ExecuteReader();
-
-                    int voteHour = 0;
-                    while (reader.Read())
-                    {
-                        voteHour++;
-                    }
-
-                    reader.Close();
-
-                    query = "SELECT * FROM post";
-
-                    cmd = new MySqlCommand(query, this.SQLConn);
-                    reader = cmd.ExecuteReader();
-
-                    int numPosts = 0;
-                    while (reader.Read())
-                    {
-                        numPosts++;
-                    }
-
-                    reader.Close();
-
-                    if (numPosts != 0) voteHourLabel.Text = (voteHour / numPosts).ToString() + " votes dans la dernière heure";
-                    else voteHourLabel.Text = "0 votes dans la dernière heure";
-
-                    //TAB INTERFACE
-                    if (tabControl1.SelectedTab.Text == "Histogramme")
-                    {
-                        //HISTOGRAM
-                        #region histogram
-                        //Find the id of the post selected
-                        query = "SELECT id FROM post WHERE name =\"" + comboBoxPost.SelectedItem.ToString() + "\"";
-
-                        cmd = new MySqlCommand(query, this.SQLConn);
-                        reader = cmd.ExecuteReader();
-
-                        int id = 0;
-                        while (reader.Read())
-                        {
-                            id = reader.GetInt32(0);
-                        }
-
-                        reader.Close();
-
-                        //Find the names and candidateID for each candidate with this postID
-                        query = "SELECT name, id FROM candidates WHERE postID =" + id.ToString();
-
-                        cmd = new MySqlCommand(query, this.SQLConn);
-                        reader = cmd.ExecuteReader();
-
-                        Dictionary<string, int> histoXLabels = new Dictionary<string, int>();
-
-                        while (reader.Read())
-                        {
-                            string name = reader.GetString(0);
-                            int candidateID = reader.GetInt32(1);
-                            histoXLabels.Add(name, candidateID);
-                        }
-
-                        reader.Close();  
-
-                        histoChart.Series[0].Points.Clear();
-
-                        foreach (KeyValuePair<string, int> item in histoXLabels)
-                            histoChart.Series[0].Points.AddXY(item.Key, getNumVotes(item.Value));
-
-                        //saving the chart
-                        chartSave.SetLength(0);
-                        histoChart.Serializer.Save(chartSave);
-                        #endregion
-                    }
-                    else if (tabControl1.SelectedTab.Text == "Camembert")
-                    {
-                        //PI
-                        #region pi
-                        //Find the id of the post selected
-                        query = "SELECT id FROM post WHERE name =\"" + comboBoxPost.SelectedItem.ToString() + "\"";
-
-                        cmd = new MySqlCommand(query, this.SQLConn);
-                        reader = cmd.ExecuteReader();
-
-                        int id = 0;
-                        while (reader.Read())
-                        {
-                            id = reader.GetInt32(0);
-                        }
-
-                        reader.Close();
-
-                        //Find the names now
-                        query = "SELECT name, id FROM candidates WHERE postID =" + id.ToString();
-
-                        cmd = new MySqlCommand(query, this.SQLConn);
-                        reader = cmd.ExecuteReader();
-
-                        Dictionary<string, int> piXLabels = new Dictionary<string, int>();
-                        while (reader.Read())
-                        {
-                            string name = reader.GetString(0);
-                            int candidateID = reader.GetInt32(1);
-                            piXLabels.Add(name, candidateID);
-                        }
-
-                        reader.Close();
-
-                        piChart.Series[0].Points.Clear();
-
-                        foreach (KeyValuePair<string, int> item in piXLabels)
-                            piChart.Series[0].Points.AddXY(item.Key, getNumVotes(item.Value));
-
-                        //saving the chart
-                        chartSave.SetLength(0);
-                        piChart.Serializer.Save(chartSave);
-                        #endregion
-                    }
-                    else
-                    {
-                        //LINES
-                        #region lines
-                        //set chart max and min values
-
-                        lineChart.ChartAreas[0].AxisX.Minimum = voteStart.ToOADate();
-                        lineChart.ChartAreas[0].AxisX.Maximum = voteStart.AddHours((double)voteTimeButton.Value).ToOADate();
-
-                        lineChart.ChartAreas[0].AxisY.Maximum = getNumUsers();
-
-                        //Find the id of the post selected
-                        query = "SELECT id FROM post WHERE name =\"" + comboBoxPost.SelectedItem.ToString() + "\"";
-
-                        cmd = new MySqlCommand(query, this.SQLConn);
-                        reader = cmd.ExecuteReader();
-
-                        int id = 0;
-                        while (reader.Read())
-                        {
-                            id = reader.GetInt32(0);
-                        }
-
-                        reader.Close();
-
-                        //Find the names now
-                        query = "SELECT name, id FROM candidates WHERE postID =" + id.ToString();
-
-                        cmd = new MySqlCommand(query, this.SQLConn);
-                        reader = cmd.ExecuteReader();
-
-                        lineChart.Series.Clear();
-
-                        Dictionary<string, int> lineXLabels = new Dictionary<string, int>();
-                        while (reader.Read())
-                        {
-                            string name = reader.GetString(0);
-                            int candidateID = reader.GetInt32(1);
-                            Series series = lineChart.Series.Add(name);
-                            series.YValueType = ChartValueType.Int32;
-                            series.XValueType = ChartValueType.Time;
-                            series.ChartType = SeriesChartType.Line;
-                            series.BorderWidth = 3;  
- 
-                            lineXLabels.Add(name, candidateID);
-                        }
-
-                        reader.Close();
-
-                        for (int k = this.lineChart.Series.Count - 1; k >= 0; k--)
-                        {
-                            lineChart.Series[k].Points.Clear();
-                            lineChart.Series[k].Points.AddXY(voteStart.ToOADate(), 0);
-
-                            //query the votes and add points
-                            query = "SELECT voteTime FROM voteHistory WHERE candidateID =" + lineXLabels[lineChart.Series[k].Name].ToString();
-
-                            cmd = new MySqlCommand(query, this.SQLConn);
-                            reader = cmd.ExecuteReader();
-
-                            int voteNum = 0;
-                            while (reader.Read())
-                            {
-                                voteNum = voteNum + 1;
-                                double time = reader.GetDateTime(0).ToOADate();
-                                lineChart.Series[k].Points.AddXY(time, voteNum);
-                                
-                            }
-
-                            reader.Close();
-
-                            double now = DateTime.Now.ToOADate();
-                            lineChart.Series[k].Points.AddXY(now, getNumVotes(getCandidateID(lineChart.Series[k].Name)));
-                        }
-
-                        //saving the chart
-                        chartSave.SetLength(0);
-                        lineChart.Serializer.Save(chartSave);
-                        #endregion
-                    }
-
-
-                }
-            }
-            catch (NullReferenceException)
-            {
-            }
+            backgroundWorker.RunWorkerAsync();
        }
 
         private void comboBoxPost_SelectedIndexChanged(object sender, EventArgs e)
@@ -794,8 +874,8 @@ namespace VoteCDJ_Admin
 
         private void addCandidatesButton_Click(object sender, EventArgs e)
         {
-            try
-            {
+            //try
+            //{
                 if (SQLConn.State == ConnectionState.Open)
                 {
                     if (getTotalVotes(-1) == 0 && !voteStarted)
@@ -812,11 +892,11 @@ namespace VoteCDJ_Admin
                 {
                     MessageBox.Show("Auncune connexion de base de données.");
                 }
-            }
-            catch
-            {
-                MessageBox.Show("Auncune connexion de base de données.");
-            }
+            //}
+            //catch
+            //{
+            //    MessageBox.Show("Auncune connexion de base de données.");
+            //}
         }
 
         private void importPassToolStripMenuItem_Click(object sender, EventArgs e)

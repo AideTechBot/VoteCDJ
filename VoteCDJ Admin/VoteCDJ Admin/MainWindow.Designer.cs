@@ -29,16 +29,16 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea5 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
-            System.Windows.Forms.DataVisualization.Charting.Series series4 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea1 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
+            System.Windows.Forms.DataVisualization.Charting.Series series1 = new System.Windows.Forms.DataVisualization.Charting.Series();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainWindow));
-            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea6 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
-            System.Windows.Forms.DataVisualization.Charting.Series series5 = new System.Windows.Forms.DataVisualization.Charting.Series();
-            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea7 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
-            System.Windows.Forms.DataVisualization.Charting.Legend legend3 = new System.Windows.Forms.DataVisualization.Charting.Legend();
-            System.Windows.Forms.DataVisualization.Charting.Series series6 = new System.Windows.Forms.DataVisualization.Charting.Series();
-            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea8 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
-            System.Windows.Forms.DataVisualization.Charting.Legend legend4 = new System.Windows.Forms.DataVisualization.Charting.Legend();
+            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea2 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
+            System.Windows.Forms.DataVisualization.Charting.Series series2 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea3 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
+            System.Windows.Forms.DataVisualization.Charting.Legend legend1 = new System.Windows.Forms.DataVisualization.Charting.Legend();
+            System.Windows.Forms.DataVisualization.Charting.Series series3 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea4 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
+            System.Windows.Forms.DataVisualization.Charting.Legend legend2 = new System.Windows.Forms.DataVisualization.Charting.Legend();
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             this.panel2 = new System.Windows.Forms.Panel();
             this.candidateChart = new System.Windows.Forms.DataVisualization.Charting.Chart();
@@ -80,12 +80,13 @@
             this.connexionsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.nouvelleConnexionToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.importPassToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.effacerTousLesVotesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.helpToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.voteTimer = new System.Windows.Forms.Timer(this.components);
             this.UIUpdater = new System.Windows.Forms.Timer(this.components);
             this.saveFileDialog = new System.Windows.Forms.SaveFileDialog();
             this.openFileDialog = new System.Windows.Forms.OpenFileDialog();
-            this.effacerTousLesVotesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.button1 = new System.Windows.Forms.Button();
             this.tableLayoutPanel1.SuspendLayout();
             this.panel2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.candidateChart)).BeginInit();
@@ -141,9 +142,9 @@
             // 
             // candidateChart
             // 
-            chartArea5.CursorX.LineWidth = 3;
-            chartArea5.Name = "ChartArea1";
-            this.candidateChart.ChartAreas.Add(chartArea5);
+            chartArea1.CursorX.LineWidth = 3;
+            chartArea1.Name = "ChartArea1";
+            this.candidateChart.ChartAreas.Add(chartArea1);
             this.candidateChart.Cursor = System.Windows.Forms.Cursors.Arrow;
             this.candidateChart.Dock = System.Windows.Forms.DockStyle.Bottom;
             this.candidateChart.Location = new System.Drawing.Point(0, 91);
@@ -151,18 +152,18 @@
             this.candidateChart.Palette = System.Windows.Forms.DataVisualization.Charting.ChartColorPalette.None;
             this.candidateChart.PaletteCustomColors = new System.Drawing.Color[] {
         System.Drawing.Color.Crimson};
-            series4.BackGradientStyle = System.Windows.Forms.DataVisualization.Charting.GradientStyle.LeftRight;
-            series4.BorderWidth = 2;
-            series4.ChartArea = "ChartArea1";
-            series4.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Line;
-            series4.Color = System.Drawing.Color.Red;
-            series4.IsVisibleInLegend = false;
-            series4.MarkerBorderColor = System.Drawing.Color.Turquoise;
-            series4.Name = "Series1";
-            series4.XValueType = System.Windows.Forms.DataVisualization.Charting.ChartValueType.Time;
-            series4.YValuesPerPoint = 2;
-            series4.YValueType = System.Windows.Forms.DataVisualization.Charting.ChartValueType.Int32;
-            this.candidateChart.Series.Add(series4);
+            series1.BackGradientStyle = System.Windows.Forms.DataVisualization.Charting.GradientStyle.LeftRight;
+            series1.BorderWidth = 2;
+            series1.ChartArea = "ChartArea1";
+            series1.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Line;
+            series1.Color = System.Drawing.Color.Red;
+            series1.IsVisibleInLegend = false;
+            series1.MarkerBorderColor = System.Drawing.Color.Turquoise;
+            series1.Name = "Series1";
+            series1.XValueType = System.Windows.Forms.DataVisualization.Charting.ChartValueType.Time;
+            series1.YValuesPerPoint = 2;
+            series1.YValueType = System.Windows.Forms.DataVisualization.Charting.ChartValueType.Int32;
+            this.candidateChart.Series.Add(series1);
             this.candidateChart.Size = new System.Drawing.Size(492, 156);
             this.candidateChart.TabIndex = 4;
             this.candidateChart.Text = "chart1";
@@ -259,6 +260,7 @@
             // flowLayoutPanel1
             // 
             this.flowLayoutPanel1.Controls.Add(this.addCandidatesButton);
+            this.flowLayoutPanel1.Controls.Add(this.button1);
             this.flowLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.flowLayoutPanel1.Location = new System.Drawing.Point(0, 0);
             this.flowLayoutPanel1.Margin = new System.Windows.Forms.Padding(0);
@@ -471,18 +473,18 @@
             // 
             // histoChart
             // 
-            chartArea6.Area3DStyle.Inclination = 20;
-            chartArea6.Area3DStyle.Rotation = 5;
-            chartArea6.Name = "ChartArea1";
-            this.histoChart.ChartAreas.Add(chartArea6);
+            chartArea2.Area3DStyle.Inclination = 20;
+            chartArea2.Area3DStyle.Rotation = 5;
+            chartArea2.Name = "ChartArea1";
+            this.histoChart.ChartAreas.Add(chartArea2);
             this.histoChart.Dock = System.Windows.Forms.DockStyle.Top;
             this.histoChart.Location = new System.Drawing.Point(3, 3);
             this.histoChart.Name = "histoChart";
-            series5.ChartArea = "ChartArea1";
-            series5.Name = "John";
-            series5.XValueType = System.Windows.Forms.DataVisualization.Charting.ChartValueType.String;
-            series5.YValuesPerPoint = 6;
-            this.histoChart.Series.Add(series5);
+            series2.ChartArea = "ChartArea1";
+            series2.Name = "John";
+            series2.XValueType = System.Windows.Forms.DataVisualization.Charting.ChartValueType.String;
+            series2.YValuesPerPoint = 6;
+            this.histoChart.Series.Add(series2);
             this.histoChart.Size = new System.Drawing.Size(466, 194);
             this.histoChart.TabIndex = 0;
             this.histoChart.Text = "chart2";
@@ -500,23 +502,23 @@
             // 
             // piChart
             // 
-            chartArea7.Area3DStyle.Inclination = 35;
-            chartArea7.Area3DStyle.IsRightAngleAxes = false;
-            chartArea7.Area3DStyle.PointDepth = 250;
-            chartArea7.Area3DStyle.Rotation = 0;
-            chartArea7.Name = "ChartArea1";
-            this.piChart.ChartAreas.Add(chartArea7);
+            chartArea3.Area3DStyle.Inclination = 35;
+            chartArea3.Area3DStyle.IsRightAngleAxes = false;
+            chartArea3.Area3DStyle.PointDepth = 250;
+            chartArea3.Area3DStyle.Rotation = 0;
+            chartArea3.Name = "ChartArea1";
+            this.piChart.ChartAreas.Add(chartArea3);
             this.piChart.Dock = System.Windows.Forms.DockStyle.Top;
-            legend3.Name = "Legend1";
-            this.piChart.Legends.Add(legend3);
+            legend1.Name = "Legend1";
+            this.piChart.Legends.Add(legend1);
             this.piChart.Location = new System.Drawing.Point(3, 3);
             this.piChart.Name = "piChart";
-            series6.ChartArea = "ChartArea1";
-            series6.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Pie;
-            series6.CustomProperties = "PieLabelStyle=Disabled";
-            series6.Legend = "Legend1";
-            series6.Name = "Series1";
-            this.piChart.Series.Add(series6);
+            series3.ChartArea = "ChartArea1";
+            series3.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Pie;
+            series3.CustomProperties = "PieLabelStyle=Disabled";
+            series3.Legend = "Legend1";
+            series3.Name = "Series1";
+            this.piChart.Series.Add(series3);
             this.piChart.Size = new System.Drawing.Size(466, 194);
             this.piChart.TabIndex = 0;
             this.piChart.Text = "chart2";
@@ -534,11 +536,11 @@
             // 
             // lineChart
             // 
-            chartArea8.Name = "ChartArea1";
-            this.lineChart.ChartAreas.Add(chartArea8);
+            chartArea4.Name = "ChartArea1";
+            this.lineChart.ChartAreas.Add(chartArea4);
             this.lineChart.Dock = System.Windows.Forms.DockStyle.Fill;
-            legend4.Name = "Legend1";
-            this.lineChart.Legends.Add(legend4);
+            legend2.Name = "Legend1";
+            this.lineChart.Legends.Add(legend2);
             this.lineChart.Location = new System.Drawing.Point(3, 3);
             this.lineChart.Name = "lineChart";
             this.lineChart.Size = new System.Drawing.Size(466, 187);
@@ -607,6 +609,14 @@
             this.importPassToolStripMenuItem.Text = "Modifier les utilisateurs";
             this.importPassToolStripMenuItem.Click += new System.EventHandler(this.importPassToolStripMenuItem_Click);
             // 
+            // effacerTousLesVotesToolStripMenuItem
+            // 
+            this.effacerTousLesVotesToolStripMenuItem.Enabled = false;
+            this.effacerTousLesVotesToolStripMenuItem.Name = "effacerTousLesVotesToolStripMenuItem";
+            this.effacerTousLesVotesToolStripMenuItem.Size = new System.Drawing.Size(196, 22);
+            this.effacerTousLesVotesToolStripMenuItem.Text = "Effacer tous les votes";
+            this.effacerTousLesVotesToolStripMenuItem.Click += new System.EventHandler(this.effacerTousLesVotesToolStripMenuItem_Click);
+            // 
             // helpToolStripMenuItem
             // 
             this.helpToolStripMenuItem.Name = "helpToolStripMenuItem";
@@ -632,13 +642,14 @@
             // 
             this.openFileDialog.FileName = "openFileDialog";
             // 
-            // effacerTousLesVotesToolStripMenuItem
+            // button1
             // 
-            this.effacerTousLesVotesToolStripMenuItem.Enabled = false;
-            this.effacerTousLesVotesToolStripMenuItem.Name = "effacerTousLesVotesToolStripMenuItem";
-            this.effacerTousLesVotesToolStripMenuItem.Size = new System.Drawing.Size(196, 22);
-            this.effacerTousLesVotesToolStripMenuItem.Text = "Effacer tous les votes";
-            this.effacerTousLesVotesToolStripMenuItem.Click += new System.EventHandler(this.effacerTousLesVotesToolStripMenuItem_Click);
+            this.button1.Location = new System.Drawing.Point(3, 32);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(75, 23);
+            this.button1.TabIndex = 1;
+            this.button1.Text = "button1";
+            this.button1.UseVisualStyleBackColor = true;
             // 
             // MainWindow
             // 
@@ -733,7 +744,7 @@
         private System.Windows.Forms.TabPage tabPage3;
         private System.Windows.Forms.DataVisualization.Charting.Chart lineChart;
         private System.Windows.Forms.ToolStripMenuItem effacerTousLesVotesToolStripMenuItem;
-
+        private System.Windows.Forms.Button button1;
     }
 }
 
