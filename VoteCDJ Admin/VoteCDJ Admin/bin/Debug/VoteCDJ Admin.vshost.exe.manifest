@@ -79,14 +79,14 @@
     </dependentAssembly>
   </dependency>
   <dependency>
-    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="VoteCDJ Admin.exe" size="98728">
+    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="VoteCDJ Admin.exe" size="101288">
       <assemblyIdentity name="VoteCDJ Admin" version="1.0.0.0" language="neutral" processorArchitecture="msil" />
       <hash>
         <dsig:Transforms>
           <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
         </dsig:Transforms>
         <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-        <dsig:DigestValue>SPboJYlJtL4tXRa0CfIAVwuRNExnPHS228NGoJKFHqQ=</dsig:DigestValue>
+        <dsig:DigestValue>AlfdDxRV+/1eYPn1Sjdk51qXPNvNBu1PMj8lcwe4Vqo=</dsig:DigestValue>
       </hash>
     </dependentAssembly>
   </dependency>

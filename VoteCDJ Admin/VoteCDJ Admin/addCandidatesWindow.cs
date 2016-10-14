@@ -221,5 +221,47 @@ namespace VoteCDJ_Admin
                 mainWindow.updateTree();
             }
         }
+
+        private void clearAll_button_Click(object sender, EventArgs e)
+        {
+            var mainWindow = Application.OpenForms.OfType<MainWindow>().Single();
+            mainWindow.UIUpdater.Stop();
+
+            foreach (string item in postComboBox.Items)
+            {
+                string tempquery = "SELECT id FROM post WHERE name=\"" + item + "\"";
+
+                MySqlCommand tempcmd = new MySqlCommand(tempquery, mainWindow.SQLConn);
+                MySqlDataReader reader = tempcmd.ExecuteReader();
+                int id = 0;
+                while (reader.Read())
+                {
+                    id = reader.GetInt16(0);
+                }
+
+                reader.Close();
+
+                string query = "DELETE FROM candidates WHERE postID = \'" + id.ToString() + "\'";
+                MySqlCommand cmd = new MySqlCommand(query, mainWindow.SQLConn);
+                cmd.ExecuteNonQuery();
+
+                query = "DELETE FROM post WHERE id = \'" + id.ToString() + "\'";
+                cmd = new MySqlCommand(query, mainWindow.SQLConn);
+                cmd.ExecuteNonQuery();
+            }
+
+            string query2 = "ALTER TABLE post AUTO_INCREMENT = 1";
+            MySqlCommand cmd2 = new MySqlCommand(query2, mainWindow.SQLConn);
+            cmd2.ExecuteNonQuery();
+
+            query2 = "ALTER TABLE candidates AUTO_INCREMENT = 1";
+            cmd2 = new MySqlCommand(query2, mainWindow.SQLConn);
+            cmd2.ExecuteNonQuery();
+
+            this.updateCandList(postComboBox.Text);
+            this.updatePostList();
+            mainWindow.UIUpdater.Start();
+            mainWindow.updateTree();
+        }
     }
 }
