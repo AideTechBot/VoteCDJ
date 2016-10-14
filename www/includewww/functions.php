@@ -1,5 +1,5 @@
 <?php
-ini_set('include_path', '/var/www/includewww');
+ini_set('include_path', '/var/www/includewww/');
 include_once 'psl-config.php';
  
 function sec_session_start() {

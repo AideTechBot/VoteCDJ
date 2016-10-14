@@ -1,6 +1,6 @@
 <!-- VOTE CDJ MANUEL DIONNE -->
 <?php
-ini_set('include_path', '/var/www/includewww');
+ini_set('include_path', '/var/www/includewww/');
 
 include_once 'db_connect.php';
 include_once 'functions.php';
