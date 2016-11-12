@@ -30,8 +30,8 @@ sec_session_start();
                         echo "<h4>R&eacute;sult&acirc;ts du vote</h4>";
                         while($row = $post->fetch_assoc()) { 
                             echo "<div class='votecell'>";
-                            echo $row['name'];
-                            echo "<br>";
+                            echo "<h5>" . $row['name'] . "</h5>";
+                            //echo "<br>";
                             $candidates = $mysqli->query("SELECT * FROM candidates WHERE postid={$row['id']}");
                             while($candidate = $candidates->fetch_assoc()) { 
                                 $votes = $mysqli->query("SELECT COUNT(*) as votes FROM voteHistory WHERE candidateID={$candidate['id']}");
