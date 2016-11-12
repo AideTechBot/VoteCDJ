@@ -10,7 +10,7 @@ if (isset($_POST['username'], $_POST['p'])) {
  
     if (login($username, $password, $mysqli) == 1) {
         // Login success 
-        error_log($username);
+        error_log($username . " has logged on from: " . $_SERVER['REMOTE_ADDR']);
         if($username == 'test_user') {
             header('Location: ../admin.php');
         }
