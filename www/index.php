@@ -1,16 +1,14 @@
-<!-- VOTE CDJ MANUEL DIONNE -->
 <?php
 ini_set('include_path', '/var/www/includewww');
-
 include_once 'db_connect.php';
 include_once 'functions.php';
- 
 sec_session_start();
 
 if (login_check($mysqli) == true) {
     header('Location: ../protected_page.php');
 }
 ?>
+<!-- VOTE CDJ MANUEL DIONNE -->
 <!DOCTYPE html>
 <html>
     <head>
