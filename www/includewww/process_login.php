@@ -10,7 +10,13 @@ if (isset($_POST['username'], $_POST['p'])) {
  
     if (login($username, $password, $mysqli) == 1) {
         // Login success 
-        header('Location: ../protected_page.php');
+        error_log($username);
+        if($username == 'test_user') {
+            header('Location: ../admin.php');
+        }
+        else {
+            header('Location: ../protected_page.php');
+        }
     } elseif (login($username, $password, $mysqli) == 2) {
         header('Location: ../index.php?error=2');
     } elseif (login($username, $password, $mysqli) == 3) {
