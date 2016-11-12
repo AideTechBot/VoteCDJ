@@ -16,6 +16,7 @@ sec_session_start();
             <title>VoteCDJ : Erreur</title>
         <?php endif; ?>   
         <link rel="stylesheet" href="styles/main.css" />
+        <link rel="stylesheet" href="styles/admin.css" />
     </head>
     <body>
         <?php if ((login_check($mysqli) == true) && ($_SESSION['username'] == 'test_user')) : ?>
@@ -23,10 +24,10 @@ sec_session_start();
                 <div class="adminheader">
                     Bienvenue <?php echo htmlentities($_SESSION['username']); ?>!
                 </div>
-                <div class="admincontent">
+                <div class="adminvotedisplay">
                     <?php
                         $post = $mysqli->query("SELECT * FROM post WHERE grade IN (SELECT grade FROM members WHERE username='{$_SESSION['username']}')");
-
+                        echo "<h4>R&eacute;sult&acirc;ts du vote</h4>";
                         while($row = $post->fetch_assoc()) { 
                             echo "<div class='votecell'>";
                             echo $row['name'];
@@ -35,7 +36,7 @@ sec_session_start();
                             while($candidate = $candidates->fetch_assoc()) { 
                                 $votes = $mysqli->query("SELECT COUNT(*) as votes FROM voteHistory WHERE candidateID={$candidate['id']}");
                                 $num = $votes->fetch_assoc();
-                                echo("&nbsp;&nbsp;&nbsp;&nbsp;<b>" . $num['votes'] . "</b> ----- " . $candidate['name'] );
+                                echo("&nbsp;&nbsp;&nbsp;&nbsp;" . $candidate['name'] . ":&nbsp;" . $num['votes'] );
                                 echo "<br>";
                             }
                             echo "</div>"; 
