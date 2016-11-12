@@ -35,6 +35,28 @@ h5 {
     overflow-y: scroll;
 }
 
+.adminvotecell {
+	padding: 5px 5px 5px 5px;
+	background-color: rgba(0, 0, 0, 0.1);
+	margin-bottom: 5px;
+	position: relative;
+}
+
+.voterow {
+	margin: 0px 0px 0px 0px;
+    padding: 3px 3px 3px 3px;
+    border:1px solid rgba(0, 0, 0, 0.1);
+    background-color: rgba(162, 140, 128, 0.9);
+    position: relative;
+}
+
+.votes {
+	position: absolute;
+	padding-right: 10px;
+	font-weight: bold;
+	right:0;
+}
+
 .adminfooter {
 	text-align: right;
 	position:absolute; 

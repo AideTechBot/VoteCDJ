@@ -29,15 +29,16 @@ sec_session_start();
                         $post = $mysqli->query("SELECT * FROM post WHERE grade IN (SELECT grade FROM members WHERE username='{$_SESSION['username']}')");
                         echo "<h4>R&eacute;sult&acirc;ts du vote</h4>";
                         while($row = $post->fetch_assoc()) { 
-                            echo "<div class='votecell'>";
+                            echo "<div class='adminvotecell'>";
                             echo "<h5>" . $row['name'] . "</h5>";
                             //echo "<br>";
                             $candidates = $mysqli->query("SELECT * FROM candidates WHERE postid={$row['id']}");
                             while($candidate = $candidates->fetch_assoc()) { 
+                                echo "<div class='voterow'>";
                                 $votes = $mysqli->query("SELECT COUNT(*) as votes FROM voteHistory WHERE candidateID={$candidate['id']}");
                                 $num = $votes->fetch_assoc();
-                                echo("&nbsp;&nbsp;&nbsp;&nbsp;" . $candidate['name'] . ":&nbsp;" . $num['votes'] );
-                                echo "<br>";
+                                echo($candidate['name'] . ":&nbsp;<span class=votes>" . $num['votes'] . "</span>");
+                                echo "</div>";
                             }
                             echo "</div>"; 
                         }
