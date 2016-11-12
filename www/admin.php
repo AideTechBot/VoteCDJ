@@ -1,5 +1,5 @@
 <?php
-ini_set('include_path', '/home1/marqueri/public_html/vote/includewww');
+ini_set('include_path', '/var/www/includewww');
 include_once 'db_connect.php';
 include_once 'functions.php';
 sec_session_start();
