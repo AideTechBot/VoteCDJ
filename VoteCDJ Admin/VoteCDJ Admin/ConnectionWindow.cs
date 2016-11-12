@@ -42,7 +42,7 @@ namespace VoteCDJ_Admin
         {
             if (PingHost(ipBox.Text))
             {
-                string connetionString = "SERVER = " + ipBox.Text + "; PORT = " + portBox.Value.ToString() + "; DATABASE = marqueri_vote; User ID = marqueri_vote; PASSWORD = BB&7y?6t%5r$4ePP";
+                string connetionString = "SERVER = " + ipBox.Text + "; PORT = " + portBox.Value.ToString() + "; DATABASE = marqueri_vote; User ID = marqueri_vote; PASSWORD = aaaaaaaaaaaaaaaaaa";
 
                 var mainWindow = Application.OpenForms.OfType<MainWindow>().Single();
                 mainWindow.SQLConn = new MySqlConnection(connetionString);
